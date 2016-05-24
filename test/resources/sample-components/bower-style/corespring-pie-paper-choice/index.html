@@ -1,0 +1,204 @@
+<link rel="import"
+  href="../paper-checkbox/paper-checkbox.html"/>
+ <dom-module id="corespring-pie-paper-choice">
+  <style>
+
+    .pie-paper-choice {
+      font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+      font-weight: 300;
+    }
+    .choice {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      padding: 5px;
+      width: 400px;
+    }
+    .prompt {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .incorrect {
+        border-width: 1px;
+        border-color: #ED831C;
+        border-style: solid;
+    }
+  .correct {
+    border-width: 1px;
+    border-color: #12D34F;
+    border-style: solid;
+  }
+
+    .missing {
+      border-width: 1px;
+      border-color: #F2E239;
+      border-style: solid;
+    }
+
+
+    paper-checkbox.view {
+      color: #aaaaaa;
+    }
+    paper-checkbox.evaluate {
+      color: #FF0000;
+    }
+    paper-checkbox.gather {
+      color: #000000;
+    }
+
+  </style>
+
+  <template>
+
+    <div class="pie-paper-choice">
+      <div class="prompt">{{config.model.prompt}}</div>
+      <template is="dom-repeat" items="{{config.model.choices}}">
+        <div class="choice" id="{{item.value}}">
+            <paper-checkbox value="{{item.value}}" class$="{{mode.view}}" on-change="checkChanged" disabled="{{disabled}}"><span>{{item.label}}</span></paper-checkbox>
+        </div>
+      </template>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+
+  function huh(){
+    console.log('huh?', this.mode);
+    setTimeout(huh.bind(this), 4000);
+  }
+
+  Polymer({
+    is: "corespring-pie-paper-choice",
+    properties: {
+      mode: {
+        type: Object,
+        notify: true//,
+        // observer: 'modeChanged'
+      },
+      config: {type: Object, observer: "configObserver", notify: true},
+      session: {type: Object, observer: "sessionObserver", value: {"response": [] } },
+      disabled: {type: Boolean, value: false, notify: true},
+      initialized: {type: Boolean, value: false, notify: true, observer: "initializedObserver"},
+      choiceStyle: {type: String, notify: true}
+    },
+    observers: [
+      'onViewChanged(mode.view)'
+    ],
+    configObserver: function(newValue, oldValue) {
+      console.log("config changed for paper choice");
+      var s = document.createElement('paper-checkbox');
+    },
+    sessionObserver: function(newValue, oldValue) {
+
+      if(!this.session.response){
+        this.session.response = [];
+      }
+      console.log("session changed for paper choice");
+    },
+    checkChanged: function(e) {
+      var model = e.model;
+      if (e.currentTarget.checked) {
+        this.setChoice(model.item.value);
+      } else {
+        this.removeChoice(model.item.value);
+      }
+      this.fire('sessionChanged', this.session);
+    },
+    /**
+    * setChoice and removeChoice handle a very simple array model for the response...
+    */
+    setChoice: function(choice) {
+        if (this.session.response.indexOf(choice) == -1) {
+          this.session.response.push(choice);
+        }
+        console.log(this.session.response);
+    },
+    removeChoice: function(choice) {
+      var i = this.session.response.indexOf(choice);
+      if(i != -1) {
+        this.session.response.splice(i, 1);
+      }
+      console.log(this.session.response);
+    },
+    modeChanged: function(newVal, oldVal) {
+      console.log('--------------------------------__ >>> modeChanged: ', newVal, oldVal);
+      this.viewChanged(newVal.view);
+      this.updateChoiceRendering();
+    },
+    onViewChanged: function(newVal) {
+      this.viewChanged(newVal);
+      this.updateChoiceRendering();
+    },
+    viewChanged: function(newVal) {
+      if (newVal == 'view' || newVal == 'instructor') {
+        this.disabled = true;
+      } else if (newVal == 'evaluate') {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    updateChoiceRendering: function() {
+
+      function clearClasses(el, choice) {
+        el.toggleClass('correct', false, choice);
+        el.toggleClass('missing', false, choice);
+        el.toggleClass('incorrect', false, choice);
+      }
+
+      function updateChoice(el, choice, selected, correct) {
+
+          if (el.mode.view == 'evaluate') {
+            if (selected) {
+              if (correct) {
+                  el.toggleClass('correct', true, choice);
+              } else {
+                  el.toggleClass('incorrect', true, choice);
+              }
+            } else {
+              if (correct) {
+                el.toggleClass('missing', true, choice);
+              }
+            }
+
+          } else if (el.mode.view == 'instructor') {
+            if (correct) {
+                el.toggleClass('correct', true, choice);
+            } else {
+              clearClasses(el, choice);
+            }
+          } else {
+            clearClasses(el, choice);
+          }
+      }
+
+      // iterate the presented choices and call updateChoice
+      var el = this;
+      var correctResponse = el.config ? el.config.correctResponse : undefined;
+      var choices = el.querySelectorAll('.choice');
+      if (choices) {
+        for (var i = 0; i < choices.length; ++i) {
+          var choice = choices[i];
+          var id = choice.id;
+
+          var selected = el.session.response.some(function(userResponse) {
+            return userResponse == id;
+          });
+
+          var correct = (correctResponse.value.indexOf(id) != -1);
+          updateChoice(el, choice, selected, correct);
+        };
+      }
+    },
+    localeChanged: function(oldVal, newVal) {
+
+    },
+    initializedObserver: function(newVal, oldVal) {
+      console.log("initialized set to " + newVal);
+      // TODO - show a spinner or something while not initialized
+    }
+  });
+
+
+</script>

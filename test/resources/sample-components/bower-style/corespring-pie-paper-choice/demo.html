@@ -1,0 +1,64 @@
+<html>
+
+  <head>
+   <link 
+     rel="import"
+     href="index.html"/>
+  </head> 
+  <body>
+
+    <script type="text/javascript">
+
+
+    document.addEventListener('pie.register', function(e){
+      e.detail.config = window.config;
+    });
+    
+    window.config = {
+      model: {
+    "prompt": "Which of the following elements are used to form water?",
+          "choices":[
+             {
+                "label":"Hydrogen",
+                "value":"H"
+             },
+             {
+                "label":"Helium",
+                "value":"He"
+             },
+             {
+                "label":"Carbon",
+                "value":"C"
+             },
+             {
+                "label":"Oxygen",
+                "value":"O"
+             },
+             {
+                "label":"Nitrogen",
+                "value":"N"
+             },
+             {
+                "label":"Chlorine",
+                "value":"Cl"
+             }
+          ],
+          "config":{
+             "orientation":"vertical",
+             "shuffle":true,
+             "choiceType":"radio",
+             "choiceLabels":"letters",
+             "showCorrectAnswer":"separately"
+          },
+          "scoringType":"standard"
+        }
+    };
+    </script>
+
+    <pie-paper-choice
+      data-config="{{config}}"
+      data-session="{{session}}"
+      data-env="{{global}}"/>
+
+  </body> 
+</html>

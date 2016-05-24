@@ -1,0 +1,8 @@
+**/node_modules
+**/bower_components
+.bower.*
+**/typings
+typings.json
+jsconfig.json
+old.lib
+.vscode

@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+  <head>
+
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"></link>
+    <link rel="stylesheet" href="../render.css"></link>
+
+    <script type="text/javascript" src="../bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/lodash/dist/lodash.js"></script>
+    <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="text/javascript" src="../bower_components/corespring-checkbox/src/directive.js"></script>
+    <script type="text/javascript" src="../bower_components/corespring-radio/src/directive.js"></script>
+    <script type="text/javascript" src="../bower_components/corespring-ng-utils/dist/ng-utils.js"></script>
+    <script type="text/javascript" src="../render.js"></script>
+    <script type="text/javascript">
+
+      angular.module('demo', ['corespring-multiple-choice'])
+        .controller('Root', ['$scope', function($scope){
+          $scope.$on('registerComponent', function(scope, id, bridge, element){
+            console.log('registerComponent...', arguments);
+
+          var data = {
+        "title": "Get a Job",
+        "correctResponse": {
+          "value": [
+            "2"
+          ]
+        },
+        "scoreMapping": {
+          "1": 0.5,
+          "2": 1,
+          "3": -1,
+          "4": -1
+        },
+        "feedback": [
+          {
+            "value": "mc_1",
+            "feedback": "Incorrect"
+          },
+          {
+            "value": "mc_2",
+            "feedback": "Correct",
+            "notChosenFeedback": "This would have been the correct one."
+          },
+          {
+            "value": "mc_3",
+            "feedback": "Incorrect"
+          },
+          {
+            "value": "mc_4",
+            "feedback": "Incorrect"
+          }
+        ],
+        "model": {
+          "config": {
+            "orientation": "vertical",
+            "shuffle": true,
+            "singleChoice": true,
+            "choiceLabels" : "letters",
+            "choiceType": "radio"
+          },
+          "choices": [
+            {
+              "label": "Apple",
+              "value": "mc_1"
+            },
+            {
+              "label": "Banana",
+              "value": "mc_2"
+            },
+            {
+              "label": "Carrot",
+              "value": "mc_3"
+            },
+            {
+              "label": "Donut",
+              "value": "mc_4"
+            }
+          ]
+        }
+      };
+
+            bridge.setDataAndSession({
+              data: data,
+              session: {}
+            })
+          })
+        }]);
+    </script>
+  </head>
+
+  <body ng-app="demo" ng-controller="Root">
+    <h2>Demo</h2>
+    <corespring-multiple-choice></corespring-multiple-choice>
+  </body>
+</html>

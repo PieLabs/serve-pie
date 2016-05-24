@@ -1,0 +1,155 @@
+{
+  "title" : "CoreSpring Multiple Choice Question Schema",
+  "type" : "object",
+  "properties" : {
+    "allowPartialScoring" : {
+      "description" : "If there is more than one correct answer to this question, you may allow partial credit based on the number of correct answers submitted.",
+      "type" : "boolean"
+    },
+    "componentType" : {
+      "description" : "A required value to indicate the component type. For multiple choice, this must be 'corespring-multiple-choice'.",
+      "type" : "string"
+    },
+    "correctResponse" : {
+      "description" : "An object describing the correct responses for the multiple choice component.",
+      "type" : "object",
+      "properties" : {
+        "value" : {
+          "description" : "Array containing the correct values for the component. These correspond to the choice values.",
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        }
+      },
+      "required" : ["value"]
+    },
+    "feedback" : {
+      "description" : "Describes feedback which should be presented to the user when the component is submitted.",
+      "type" : "array",
+      "items" : {
+        "type" : "object",
+        "properties" : {
+          "feedback" : {
+            "description" : "Custom feedback that will be displayed to the user if this choice is selected, and feedbackType is custom.",
+            "type" : "string"
+          },
+          "feedbackType" : {
+            "description" : "Describes the type of feedback that will be shown if this answer has been selected.",
+            "enum" : ["none", "custom"]
+          },
+          "notChosenFeedback" : {
+            "description" : "Custom feedback that will be displayed to the user if this choice is not selected, and notChosenFeedbackType is custom.",
+            "type" : "string"
+          },
+          "notChosenFeedbackType" : {
+            "description" : "Describes the type of feedback that will be shown if this answer has not been selected.",
+            "enum" : ["none", "custom"]
+          },
+          "value" : {
+            "description" : "The value of the choice related to this feedback configuration.",
+            "type" : "string"
+          }
+        },
+        "required" : ["value"]
+      }
+    },
+    "model" : {
+      "description" : "Contains configuration and choice values.",
+      "type" : "object",
+      "properties" : {
+        "config" : {
+          "description" : "Configuration for rendering the component.",
+          "type" : "object",
+          "properties" : {
+            "description" : "A value indicating whether the labels for choices should be letters, numbers, or not present.",
+            "choiceLabels" : {
+              "enum" : ["letters", "none", "numbers"]
+            },
+            "choiceType" : {
+              "description" : "Value which describes whether the selection mechanism for choices should be a radio button or a checkbox.",
+              "enum" : ["checkbox", "radio"]
+            },
+            "choiceStyle" : {
+              "description" : "An optional CSS class which will be added to the choices.",
+              "type" : "string"
+            },
+            "orientation" : {
+              "description" : "Indicates how the choices should be laid out: horizontally, vertically, or in a tile formation.",
+              "enum" : ["vertical", "horizontal", "tile"]
+            },
+            "shuffle" : {
+              "description" : "A boolean value which indicates whether the choices should be shuffled when the component is rendered.",
+              "type" : "boolean"
+            },
+            "singleChoice" : {
+              "description" : "A boolean value specifying whether the user should be allowed to select a single choice or multiple choices.",
+              "type" : "boolean"
+            }
+          },
+          "required" : ["choiceLabels", "choiceType"]
+        },
+        "choices" : {
+          "description" : "The choices rendered for the interaction.",
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "description" : "The label to be rendered for the choice.",
+              "label" : {
+                "type" : "string"
+              },
+              "labelType" : {
+                "description" : "The content type of the choice (at present, only text is supported).",
+                "enum" : ["text"]
+              },
+              "rationale" : {
+                "description" : "An explanation of why the answer is correct/incorrect. This is only displayed to the teacher.",
+                "type" : "string"
+              },
+              "value" : {
+                "description" : "The value used for the choice. This is used to determine correctness and feedback.",
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "required" : ["choices", "config"]
+    },
+    "partialScoring" : {
+      "description" : "A description of the partial scoring to be used by the interaction.",
+      "type" : "array",
+      "items" : {
+        "description" : "A configuration object which maps the number of correct responses to the percentage to be awarded.",
+        "type" : "object",
+        "properties" : {
+          "numberOfCorrect" : {
+            "description" : "The number of correct responses.",
+            "type" : "number"
+          },
+          "scorePercentage" : {
+            "description" : "The percentage of the score to be awarded for the number of correct responses.",
+            "type" : "number",
+            "minimum" : 0,
+            "maximum" : 100
+          }
+        },
+        "required" : ["numberOfCorrect", "scorePercentage"]
+      }
+    },
+    "scoreMapping" : {
+      "description" : "An object mapping correct values to their score weighting. The keys of this object should be the choice values, and the values their numeric weighting.",
+      "type" : "object"
+    },
+    "title" : {
+      "description" : "A title for the interaction, displayed in the editor.",
+      "type" : "string"
+    },
+    "weight" : {
+      "description" : "The weighting to be assigned to the interaction in the context of the overall item.",
+      "type" : "number"
+    }
+  },
+  "required" : ["componentType", "model", "correctResponse"]
+}

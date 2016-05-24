@@ -1,0 +1,56 @@
+extends ../layout
+
+block head
+
+  - for c in css
+    link(href=c, rel="stylesheet")
+
+
+  link(rel='stylesheet', href='/stylesheets/render.css')
+
+  - for j in js
+    script(type="text/javascript", src=j)
+
+  - for i in htmlImports
+    link(rel="import", href=i)
+
+  script.
+
+    (function(root){
+      root.pie = root.pie || {};
+      root.pie.container = new root.pie.Container(root, !{JSON.stringify(model)});
+      console.log('pie.container instance constructed');
+
+      /**
+       * Angular and React components need to be bootstrapped.
+       */
+      var bootstrap = !{JSON.stringify(bootstrap)};
+
+      console.log('bootstrap: ', bootstrap);
+
+      bootstrap.angular.forEach(function(id){
+        var key = id.name;
+        document.registerAngular(key);
+      });
+
+      bootstrap.react.forEach(function(id){
+        var key = id.name;
+        document.registerReact(key, window[key]);
+      });
+
+    })(this);
+
+
+
+
+block content
+  h1= name
+  hr/
+  pie-control-panel
+  hr/
+  div.render-main
+    div.rendering
+      !{markup}
+    div.session-preview
+      h4 session:
+      textarea

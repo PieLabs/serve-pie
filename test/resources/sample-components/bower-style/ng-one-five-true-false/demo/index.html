@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <script type="text/javascript" src="../bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="../index.js"></script>
+  <script type="text/javascript">
+
+    angular.module('demo', ['ng-one-five-true-false'])
+      .controller('Root', function($scope){
+
+        $scope.configOne = { 
+          model: {
+            prompt: "1 + 1 = 2",
+            correctResponse: true
+          }
+        };
+        
+        $scope.configTwo = { 
+          model: {
+            prompt: "Ice cream is a fruit",
+            correctResponse: false
+          }
+        };
+
+      });
+  </script>
+</head>
+<body ng-app="demo" ng-controller="Root">
+  <div class="container">
+    <ng-one-five-true-false config="configOne"></ng-one-five-true-false>
+    <ng-one-five-true-false config="configTwo"></ng-one-five-true-false>
+  </div>
+</body>
+</html>

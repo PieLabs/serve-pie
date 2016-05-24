@@ -1,0 +1,69 @@
+{
+  "components": [
+    {
+      "id": "one",
+      "component": {
+        "name": "corespring-multiple-choice",
+        "version": "1.0.0"
+      },
+      "title": "Get a Job",
+      "correctResponse": {
+        "value": [
+          "2"
+        ]
+      },
+      "scoreMapping": {
+        "1": 0.5,
+        "2": 1,
+        "3": -1,
+        "4": -1
+      },
+      "feedback": [
+        {
+          "value": "mc_1",
+          "feedback": "Incorrect"
+        },
+        {
+          "value": "mc_2",
+          "feedback": "Correct",
+          "notChosenFeedback": "This would have been the correct one."
+        },
+        {
+          "value": "mc_3",
+          "feedback": "Incorrect"
+        },
+        {
+          "value": "mc_4",
+          "feedback": "Incorrect"
+        }
+      ],
+      "model": {
+        "config": {
+          "orientation": "vertical",
+          "shuffle": true,
+          "singleChoice": true,
+          "choiceLabels": "letters",
+          "choiceType": "radio"
+        },
+        "choices": [
+          {
+            "label": "1",
+            "value": "mc_1"
+          },
+          {
+            "label": "2",
+            "value": "mc_2"
+          },
+          {
+            "label": "3",
+            "value": "mc_3"
+          },
+          {
+            "label": "4",
+            "value": "mc_4"
+          }
+        ]
+      }
+    }
+  ]
+}

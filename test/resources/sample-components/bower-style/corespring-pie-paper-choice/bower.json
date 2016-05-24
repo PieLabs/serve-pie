@@ -1,0 +1,17 @@
+{
+  "name": "corespring-pie-paper-choice",
+  "version": "1.0.0",
+  "main" : "./index.html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "iron-selector": "PolymerElements/iron-selector#^1.0.0",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.0.0",
+    "webcomponentsjs": "~0.7.3",
+    "lodash": "^4.7.0"
+  }
+}

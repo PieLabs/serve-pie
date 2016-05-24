@@ -1,0 +1,8 @@
+{
+  "name" : "corespring-multiple-choice",
+  "version" : "0.0.1",
+  "private" : true,
+  "devDependencies": {
+    "pie-container" : "1.0.0"
+  }
+}
