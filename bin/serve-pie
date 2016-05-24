@@ -2,7 +2,7 @@
 
 "use strict";
 
-process.title = 'pie-container';
+process.title = 'serve-pie';
 
 const argv = require('minimist')(process.argv);
 
@@ -16,7 +16,7 @@ if (argv.log) {
   }
 }
 
-const PieContainer = require('../lib/pie-container');
+const PieContainer = require('../lib/serve-pie');
 const path = require('path');
 const _ = require('lodash');
 const parentDir = path.normalize(path.join(process.cwd(), '..'));
@@ -49,8 +49,6 @@ Options:
   let root = argv.root || process.cwd();
   let resolvedPies = require('../lib/read-local-pies')(root, pies);
   
-  console.log('>>', resolvedPies);
-   
   container.run({
     pies: resolvedPies,
     fullInstall: argv.fullInstall,

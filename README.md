@@ -1,10 +1,10 @@
-# Pie Container
+# Serve Pie 
 
 # Install
 
 ```
 npm install # install the dependencies
-npm link # link pie-container as a global executable
+npm link # link serve-pie as a global executable
 
 ```
 
@@ -12,7 +12,7 @@ npm link # link pie-container as a global executable
 
 ```
 cd test/resources/sample-content/bower-style/sample-item
-pie-container 
+serve-pie 
 ```
 
 ### Tests
