@@ -1,13 +1,13 @@
 {
-  "name": "pie-container",
+  "name": "serve-pie",
   "version": "0.0.1",
   "preferGlobal": true,
   "description": "A tool to run sample content that uses `pie` elements",
   "bin": {
-    "pie-container": "bin/pie-container"
+    "serve-pie": "bin/serve-pie"
   },
   "scripts": {
-    "start": "./bin/pie-container"
+    "start": "./bin/serve-pie"
   },
   "engines" : {
     "node" : ">=5.11.0"

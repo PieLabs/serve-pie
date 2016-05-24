@@ -1,0 +1,11 @@
+{
+  "name": "serve-pie",
+  "version": "0.0.1",
+  "description": "the client side assets used when runing the serve-pie",
+  "dependencies": {
+    "pie-container" : "git@bitbucket.org:pielibs/pie-container.git",
+    "pie-angular-one-five-support" : "git@bitbucket.org:pielibs/pie-angular-one-five-support.git",
+    "pie-react-support" : "git@bitbucket.org:pielibs/pie-react-support.git",
+    "control-panel" : "git@bitbucket.org:pielibs/control-panel.git"
+  }
+}
