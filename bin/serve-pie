@@ -39,18 +39,20 @@ Options:
 } else {
   
   let container = new PieContainer();
-  let pies = (() => {
-    if(argv.pie){
-       return _.isArray(argv.pie)  ? argv.pie : [argv.pie];
-    } else {
-      return [];
-    }
+  let cliPies = (() => {
+     let arr = _.isArray(argv.pie) ? argv.pie : [argv.pie];
+     
+     return _(arr).compact().reduce((acc, p) => {
+       let name = path.basename(p);
+       acc[name] = p;
+       return acc;
+     }, {});
   })();
   let root = argv.root || process.cwd();
-  let resolvedPies = require('../lib/read-local-pies')(root, pies);
+  let itemPies = require('../lib/read-local-pies')(root);
   
   container.run({
-    pies: resolvedPies,
+    pies: _.extend(cliPies, itemPies, {}),
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
     root: root

@@ -1,0 +1,5 @@
+{
+  "dependencies" : {
+    "corespring-pie-paper-choice" : "git@bitbucket.org:pieelements/corespring-pie-paper-choice.git"
+  }
+}  
