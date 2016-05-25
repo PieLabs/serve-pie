@@ -17,27 +17,12 @@ block head
   script.
 
     (function(root){
-      root.pie = root.pie || {};
-      root.pie.container = new root.pie.Container(root, !{JSON.stringify(model)});
+      var model = !{JSON.stringify(model)};
+      console.log('model', model);
+      var env = {mode : 'gather'};
+      var sessions = [];
+      pie.container = new root.pie.Container(model.components, env, sessions);
       console.log('pie.container instance constructed');
-
-      /**
-       * Angular and React components need to be bootstrapped.
-       */
-      var bootstrap = !{JSON.stringify(bootstrap)};
-
-      console.log('bootstrap: ', bootstrap);
-
-      bootstrap.angular.forEach(function(id){
-        var key = id.name;
-        document.registerAngular(key);
-      });
-
-      bootstrap.react.forEach(function(id){
-        var key = id.name;
-        document.registerReact(key, window[key]);
-      });
-
     })(this);
 
 
