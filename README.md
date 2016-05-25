@@ -29,3 +29,8 @@ node-debug _mocha test/spec/**
 ```
 
 
+### Dev notes
+
+server additions:
+* server side processing - how to glue in?
+* server side preprocessing
