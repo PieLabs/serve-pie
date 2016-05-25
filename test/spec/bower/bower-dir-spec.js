@@ -36,12 +36,19 @@ describe('bower-dir', () => {
       openSync: sinon.stub()
     }
     
-    resolutionReport = sinon.stub().returns({}); 
+    resolutionReport = {
+      fromPath: sinon.stub().returns({})
+    }
     
     BowerDir = proxyquire('../../../lib/bower/bower-dir', {
       'child_process': childProcess,
       'fs-extra': fsExtra,
       'bower' : bower,
+      'bower-config' : {
+        read: function(){
+          return {directory: 'bower_components'}
+        }
+      },
       './resolution-report' : resolutionReport
     });
     bowerDir = new BowerDir('dir');
@@ -115,8 +122,8 @@ describe('bower-dir', () => {
       sinon.assert.calledWith(bower.commands.install, [], sinon.match.any, {});
     });
     
-    it('creates a new resolution report', () => {
-      sinon.assert.calledWithNew(resolutionReport);
+    it('calls resolutionReport.fromPath', () => {
+      sinon.assert.called(resolutionReport.fromPath);
     });
     
     it('writes out the tmp bower.json', () => {
@@ -125,8 +132,7 @@ describe('bower-dir', () => {
         version: '1.0.0',
         dependencies: {
           a: 'path/to/a'
-        },
-        resolutions: {}
+        }
       });
     });
     

@@ -48,8 +48,9 @@ Options:
        return acc;
      }, {});
   })();
+
   let root = argv.root || process.cwd();
-  let itemPies = require('../lib/read-local-pies')(root);
+  let itemPies = require('../lib/read-item-dependencies')(root);
   
   container.run({
     pies: _.extend(cliPies, itemPies, {}),
