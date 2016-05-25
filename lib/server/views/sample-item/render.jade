@@ -5,11 +5,12 @@ block head
   - for c in css
     link(href=c, rel="stylesheet")
 
-
   link(rel='stylesheet', href='/stylesheets/render.css')
 
   - for j in js
     script(type="text/javascript", src=j)
+  
+  script(type="text/javascript", src="/js/serve-pie-processor.js")
 
   - for i in htmlImports
     link(rel="import", href=i)
@@ -18,15 +19,15 @@ block head
 
     (function(root){
       var model = !{JSON.stringify(model)};
-      console.log('model', model);
       var env = {mode : 'gather'};
       var sessions = [];
-      pie.container = new root.pie.Container(model.components, env, sessions);
+      var servePie = {
+        processor: new ServePieProcessor(!{JSON.stringify(processingEndpoints)})
+      }
+      
+      pie.container = new root.pie.Container(model.components, env, sessions, servePie.processor);
       console.log('pie.container instance constructed');
     })(this);
-
-
-
 
 block content
   h1= name
