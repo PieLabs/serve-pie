@@ -24,7 +24,7 @@ const userHome = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HO
 
 if (argv.h || argv.help) {
 
-  console.log(`pie-container: run sample items that use pie elements.
+  console.log(`serve-pie:  serve up some pie. 
 Options:
   -p | --port [port] - the http port to bind to (default: 5000)
   --root [path]      - the path to the samples (default: ${process.cwd()})
