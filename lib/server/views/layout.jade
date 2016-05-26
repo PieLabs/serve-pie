@@ -10,5 +10,12 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     block head
   body
+  
+  
+  nav.navbar.navbar-default.navbar-fixed-top
     .container
-      block content
+      img.logo(src="/svg/pie.svg" alt="pie", width="50px")
+      label.name=name
+  .container
+    block content
+

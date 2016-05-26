@@ -36,9 +36,15 @@ node-debug _mocha test/spec/**
 * formalize outcome inputs and outputs (questions, sessions, settings) => outcome what does it return?
 * allow it to work with dev style pie elements aka paths are local.
 * schema support
+* styling
 
-### Dev notes
+* assets in pies?
 
-server additions:
-* server side processing - how to glue in?
-* server side preprocessing
+- either passed in from the model (no problem there)
+- baked in?
+
+<template>
+  <img src="my-img.jpg"/>
+</template>
+
+How do we serve this? it'll be rendered on the page as "my-img.jpg"
