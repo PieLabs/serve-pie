@@ -21,6 +21,7 @@ const path = require('path');
 const _ = require('lodash');
 const parentDir = path.normalize(path.join(process.cwd(), '..'));
 const userHome = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
+const logger = logFactory.fileLogger(__filename);
 
 if (argv.h || argv.help) {
 
@@ -51,9 +52,11 @@ Options:
 
   let root = argv.root || process.cwd();
   let itemPies = require('../lib/read-item-dependencies')(root);
+  logger.debug('itemPies', itemPies);
+  logger.debug('cliPies', cliPies);
   
   container.run({
-    pies: _.extend(cliPies, itemPies, {}),
+    pies: _.extend({}, itemPies, cliPies),
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
     root: root

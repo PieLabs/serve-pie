@@ -43,11 +43,10 @@ mocha --debug-brk test/spec/path/to/spec.js
 ### TODOS
 
 * formalize outcome inputs and outputs (questions, sessions, settings) => outcome what does it return?
-* allow it to work with dev style pie elements aka paths are local.
+* allow it to work with dev style pie elements aka paths are local. (need to do a bower link for these).
 * schema support
 * styling
 * ~~assets in items~~
-
 
 * assets in pies?
 
