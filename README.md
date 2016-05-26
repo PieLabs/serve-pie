@@ -15,6 +15,15 @@ cd test/resources/sample-content/bower-style/sample-item
 serve-pie 
 ```
 
+#### Debug
+
+````
+node --debug-brk $(which serve-pie)
+
+# You can now attach a debugger to localhost:5858
+
+````
+
 ### Tests
 
 ```
@@ -26,9 +35,9 @@ grunt test
 ```
 
 mocha --debug-brk test/spec/path/to/spec.js
-# then you can attach an inspector to port 5858
-npm install -g node-inspector
-node-debug _mocha test/spec/**
+# then you can attach a debugger to localhost:5858
+# eg: npm install -g node-inspector
+#     node-debug _mocha test/spec/**
 ```
 
 ### TODOS
@@ -37,6 +46,8 @@ node-debug _mocha test/spec/**
 * allow it to work with dev style pie elements aka paths are local.
 * schema support
 * styling
+* ~~assets in items~~
+
 
 * assets in pies?
 
