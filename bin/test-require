@@ -22,16 +22,48 @@ let relativePath = argv.path;
 
 let useFullPath = argv.useFull;
 let requirePath = useFullPath ? path.join(root, relativePath) : relativePath;
-console.log('using path: ', requirePath);
 
-let loaded;
+const vm = require('vm');
+const fs = require('fs-extra');
 
-const SandboxedModule = require('sandboxed-module');
+let src = fs.readFileSync(relativePath);
 
-if(argv.useSandbox){
-  loaded = SandboxedModule.require(requirePath, { requires: {lodash: require('lodash')}});
-} else {
- loaded = require(requirePath);
-}
+console.log(src);
 
-console.log(loaded);
+let validLibs = {
+  lodash: require('lodash')
+};
+
+let mockRequire = (name) => {
+  if(validLibs.hasOwnProperty(name)){
+    return validLibs[name];
+  } else {
+    throw new Error(`Can't find module ${name}`);
+  }
+};
+
+let localModule = {
+  exports: {} 
+};
+
+const script = new vm.Script(src); 
+const sandbox = {require: mockRequire, module: localModule, exports: localModule.exports};
+script.runInNewContext(sandbox);
+
+// console.log('obj: ', obj);
+console.log('obj: ', localModule);
+
+let out = localModule.exports.createOutcome({correctResponse: {}}, {}, {});
+console.log(out);
+
+// let loaded;
+
+// const SandboxedModule = require('sandboxed-module');
+
+// if(argv.useSandbox){
+//   loaded = SandboxedModule.require(requirePath, { requires: {lodash: require('lodash')}});
+// } else {
+//  loaded = require(requirePath);
+// }
+
+// console.log(loaded);
