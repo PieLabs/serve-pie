@@ -6,8 +6,7 @@
   "preferGlobal": true,
   "description": "A tool to run sample content that uses `pie` elements",
   "bin": {
-    "serve-pie": "bin/serve-pie",
-    "test-require": "bin/test-require"
+    "serve-pie": "bin/serve-pie"
   },
   "scripts": {
     "start": "./bin/serve-pie",

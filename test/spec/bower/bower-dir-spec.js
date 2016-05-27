@@ -167,15 +167,19 @@ describe('bower-dir', () => {
   
   describe('linkDependencies', () => {
     
+    let result;
+     
     beforeEach((done) => {
-      
-      fsExtra.lstatSync = sinon.stub().returns({isDirectory: () => true});
+      fsExtra.lstatSync = sinon.stub().returns({isDirectory: () => false});
+      fsExtra.lstatSync.withArgs('../../').returns({isDirectory: () => true});
       fsExtra.existsSync = sinon.stub().returns(true); 
-      bowerDir.link = sinon.stub().returns(Promise.resolve({}));
+      bowerDir.link = sinon.stub().returns(Promise.resolve(true));
       bowerDir.linkDependencies({
-        name: '../../'
+        name: '../../',
+        skipThis: 'git@github.com:org/repo.git'
       })
-      .then(() =>{
+      .then((r) =>{
+        result = r;
         done();
       })
       .catch(() => {
@@ -183,8 +187,13 @@ describe('bower-dir', () => {
       });
     });   
     
+    it('the result lists the name', () => {
+      console.log(JSON.stringify(result));
+      result.should.eql({name: true});
+    });
+    
     it('iterates through then links', () => {
-      
+      sinon.assert.calledWith(bowerDir.link, 'name', '../../');
     });
     
   });
