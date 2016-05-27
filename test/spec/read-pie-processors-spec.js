@@ -5,21 +5,30 @@ const sinon = require('sinon');
 describe('read-pie-processors', () => {
   
   let read;
-   
+  
+  let mockScript; 
+     
   beforeEach((done) => {
     
+    mockScript = {
+      runInNewContext: function(sandbox){
+        sandbox.exports.createOutcome = function(){
+          return {correctness: 'correct'};
+        };
+      }
+    };
+    
     read = proxyquire('../../lib/read-pie-processors', {
-      'bower-dir/comp/bower.json' : {
-        name: 'comp', 
-        version: '0.0.1',
-        '@noCallThru': true
+      'fs-extra' : {
+        readJsonSync: sinon.stub().returns({
+          name: 'name',
+          version: 'version'
+        }),
+        readFileSync: sinon.stub().returns('')
       },
-      'bower-dir/comp/processing.js' : {
-        createOutcome: function(){
-          return {correctness: 'correct'}
-        },
-        '@noCallThru': true
-      },
+      'vm' : {
+        Script: function() { return mockScript; }
+      }
     });    
     
     read({'comp': ''}, 'bower-dir')
@@ -36,7 +45,7 @@ describe('read-pie-processors', () => {
   });
   
   it('should return the name and version in the id', () => {
-    processors[0].component.should.eql({name: 'comp', version: '0.0.1'}); 
+    processors[0].component.should.eql({name: 'name', version: 'version'}); 
   });
   
   it('should return the name and version in the id', () => {
