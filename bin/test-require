@@ -15,6 +15,7 @@ if (argv.log) {
     logFactory.setConfigFromFile(argv.log);
   }
 }
+
 let path = require('path');
 let root = argv.root || process.cwd();
 let relativePath = argv.path;
@@ -22,6 +23,15 @@ let relativePath = argv.path;
 let useFullPath = argv.useFull;
 let requirePath = useFullPath ? path.join(root, relativePath) : relativePath;
 console.log('using path: ', requirePath);
-let loaded = require(requirePath);
+
+let loaded;
+
+const SandboxedModule = require('sandboxed-module');
+
+if(argv.useSandbox){
+  loaded = SandboxedModule.require(requirePath, { requires: {lodash: require('lodash')}});
+} else {
+ loaded = require(requirePath);
+}
 
 console.log(loaded);
