@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+
+"use strict";
+
+process.title = 'test-require';
+
+const argv = require('minimist')(process.argv);
+
+const logFactory = require('../lib/log-factory');
+
+if (argv.log) {
+  if (logFactory.isLogLevel(argv.log)) {
+    logFactory.setDefaultLevel(argv.log);
+  } else {
+    logFactory.setConfigFromFile(argv.log);
+  }
+}
+let path = require('path');
+let root = argv.root || process.cwd();
+let js = argv.path;
+let loaded = require(path.join(root, js));
+
+console.log(loaded);

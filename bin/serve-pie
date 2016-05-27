@@ -4,11 +4,6 @@
 
 process.title = 'serve-pie';
 
-// var SandboxedModule = require('sandboxed-module');
-// var a = SandboxedModule.require('../a', {
-//   requires: {'lodash': require('lodash') }
-// });
-
 const argv = require('minimist')(process.argv);
 
 const logFactory = require('../lib/log-factory');
