@@ -17,7 +17,11 @@ if (argv.log) {
 }
 let path = require('path');
 let root = argv.root || process.cwd();
-let js = argv.path;
-let loaded = require(path.join(root, js));
+let relativePath = argv.path;
+
+let useFullPath = argv.useFull;
+let requirePath = useFullPath ? path.join(root, relativePath) : relativePath;
+console.log('using path: ', requirePath);
+let loaded = require(requirePath);
 
 console.log(loaded);
