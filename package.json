@@ -7,7 +7,7 @@
   "description": "A tool to run sample content that uses `pie` elements",
   "bin": {
     "serve-pie": "bin/serve-pie",
-    "test-require" : "bin/test-require"
+    "test-require": "bin/test-require"
   },
   "scripts": {
     "start": "./bin/serve-pie",
@@ -17,6 +17,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "bluebird": "^3.4.0",
     "body-parser": "~1.15.0",
     "bower": "~1.7.9",
     "bower-config": "~1.3.1",
