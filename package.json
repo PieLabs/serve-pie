@@ -26,6 +26,7 @@
     "lodash": "~4.7.0",
     "minimist": "~1.2.0",
     "morgan": "~1.7.0",
+    "sandboxed-module": "^2.0.3",
     "winston": "~2.2.0"
   },
   "devDependencies": {
