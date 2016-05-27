@@ -144,4 +144,8 @@ describe('bower-dir', () => {
       sinon.assert.calledWith(fsExtra.writeJSONSync, 'dir/.bower.installed.json', {a: {}, b: {}});
     });
   });
+  
+  describe('link', () => {
+    
+  });
 });

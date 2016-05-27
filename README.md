@@ -1,14 +1,52 @@
 # Serve Pie 
 
-# Install
+A development server for running pies locally.
+
+## Install
 
 ```
+npm install -g serve-pie
+
+```
+
+## Usage
+
+To use serve-pie, you run it in a directory that has the following files:
+
+* index.html - the markup to render in the sample
+* index.json - the data model for the pies declared in the layout
+* dependencies.json - defines how to resolve the pies defined above
+
+The dependencies.json should have the following form:
+```json
+{
+ "dependencies" : {
+   "local-pie" : "../",
+   "git-pie" : "git@git.com:org/repo.git"
+ } 
+}
+```
+
+If the dependency value is a local path, the repo will be attached using `bower link`, allowing you to then make changes to the source and have them reflected in the sample item.
+
+### CLI Options
+
+* --pie - set a path to a local pie dependency (will override what's in dependencies.json). you can have as many of these as you want
+* --log [error|warn|info|verbose|debug|silly|path-to-config-file] - a log level or a path to a log config file.
+* ....
+
+
+## Developing/Contributing
+
+```
+git clone git@bitbucket.org:pietools/serve-pie.git
+cd serve-pie
 npm install # install the dependencies
 npm link # link serve-pie as a global executable
 
 ```
 
-### Run a sample
+### Run a test sample
 
 ```
 cd test/resources/sample-content/bower-style/sample-item
