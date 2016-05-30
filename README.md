@@ -11,11 +11,14 @@ npm install -g serve-pie
 
 ## Usage
 
-To use serve-pie, you run it in a directory that has the following files:
+To use serve-pie, you run and select a root directory that has the following files:
+
 
 * index.html - the markup to render in the sample
 * index.json - the data model for the pies declared in the layout
-* dependencies.json - defines how to resolve the pies defined above
+* dependencies.json (optional [can use `--pie` as an alternative) - defines how to resolve the pies defined above
+
+> By default the current directory is treated as the root. To change the root use `--root [path]` in the cli.
 
 The dependencies.json should have the following form:
 ```json
@@ -33,6 +36,7 @@ If the dependency value is a local path, the repo will be attached using `bower 
 
 * --pie - set a path to a local pie dependency (will override what's in dependencies.json). you can have as many of these as you want
 * --log [error|warn|info|verbose|debug|silly|path-to-config-file] - a log level or a path to a log config file.
+* --root [path] the path to be used as the root, should contain the sample files above.
 * ....
 
 
@@ -67,7 +71,12 @@ node --debug-brk $(which serve-pie)
 ```
 grunt test
 
+# or 
+
+mocha test/spec/**/*.js
+
 ```
+
 ##### debug tests: 
 
 ```
@@ -81,15 +90,13 @@ mocha --debug-brk test/spec/path/to/spec.js
 ### TODOS
 
 * formalize outcome inputs and outputs (questions, sessions, settings) => outcome what does it return?
-* allow it to work with dev style pie elements aka paths are local. (need to do a bower link for these).
+* ~~allow it to work with dev style pie elements aka paths are local. (need to do a bower link for these).~~
 * schema support
 * styling
 * ~~assets in items~~
-
 * assets in pies?
-
-- either passed in from the model (no problem there)
-- baked in?
+  * either passed in from the model (no problem there)
+  * baked in?
 
 <template>
   <img src="my-img.jpg"/>
