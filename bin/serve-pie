@@ -38,25 +38,36 @@ Options:
 `);
   process.exit(0);
 } else {
-  
+
   let container = new PieContainer();
   let cliPies = (() => {
-     let arr = _.isArray(argv.pie) ? argv.pie : [argv.pie];
-     
-     return _(arr).compact().reduce((acc, p) => {
-       let name = path.basename(p);
-       acc[name] = p;
-       return acc;
-     }, {});
+    let arr = _.isArray(argv.pie) ? argv.pie : [argv.pie];
+    return _(arr).compact().reduce((acc, p) => {
+      try {
+        let resolved = path.resolve(p);
+
+        require('fs-extra').lstatSync(resolved);
+        console.log('resolved: ', resolved);
+        let name = path.basename(resolved);
+        acc[name] = resolved;
+      } catch (e) {
+        logger.error(`Can't find path: ${p}`);
+        logger.debug(e.stack);
+      }
+      return acc;
+    }, {});
   })();
 
   let root = argv.root || process.cwd();
   let itemPies = require('../lib/read-item-dependencies')(root);
-  logger.debug('itemPies', itemPies);
-  logger.debug('cliPies', cliPies);
-  
+  logger.silly('itemPies', itemPies);
+  logger.silly('cliPies', cliPies);
+  let joinedPies = _.extend({}, itemPies, cliPies);
+
+  logger.debug('joinedPies: ', joinedPies);
+
   container.run({
-    pies: _.extend({}, itemPies, cliPies),
+    pies: joinedPies,
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
     root: root
