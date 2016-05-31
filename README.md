@@ -88,6 +88,9 @@ mocha --debug-brk test/spec/path/to/spec.js
 ```
 
 ### TODOS
+* what to do about accessibility - on load can you pass in accessiblity opts?
+  * or do you pass them in at runtime?
+  * for now i'm going to set it up as runtime - as this fits with what's currently there.
 
 * formalize outcome inputs and outputs (questions, sessions, settings) => outcome what does it return?
 * ~~allow it to work with dev style pie elements aka paths are local. (need to do a bower link for these).~~
@@ -103,3 +106,19 @@ mocha --debug-brk test/spec/path/to/spec.js
 </template>
 
 How do we serve this? it'll be rendered on the page as "my-img.jpg"
+
+
+
+> load( {asl: true} ) ==> { model: { text: '.., aslVid: '..' }}
+
+or 
+
+load() ==> { model: text: '..', aslVid: '..'}}
+if( env.accessibility.asl ) {
+  ...
+} 
+
+if(model.aslVid){
+}
+
+ 

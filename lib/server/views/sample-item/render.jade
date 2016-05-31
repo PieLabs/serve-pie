@@ -19,7 +19,7 @@ block head
 
     (function(root){
       var model = !{JSON.stringify(model)};
-      var env = {mode : 'gather'};
+      var env = {mode : 'gather', locale: 'en_US'};
       var sessions = [];
       var servePie = {
         processor: new ServePieProcessor(!{JSON.stringify(processingEndpoints)})
