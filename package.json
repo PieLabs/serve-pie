@@ -28,6 +28,7 @@
     "minimist": "~1.2.0",
     "morgan": "~1.7.0",
     "sandboxed-module": "^2.0.3",
+    "semver": "^5.1.0",
     "winston": "~2.2.0"
   },
   "devDependencies": {
