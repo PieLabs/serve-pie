@@ -51,11 +51,33 @@ describe('read-item-dependencies', () => {
     read('dir').should.eql({});
   });
 
+  it('passes through git urls', () => {
+    fs.readJsonSync.returns({
+      dependencies: {
+        gitUrl: 'git@github.com:blah/blah.git'
+      }
+    });
+    
+    read('dir').should.eql({
+      gitUrl: 'git@github.com:blah/blah.git'
+    });
+  });
+
+  it('passes through semvers', () => {
+    fs.readJsonSync.returns({
+      dependencies: {
+        semver: '1.1.1'
+      }
+    });
+    
+    read('dir').should.eql({
+      semver: '1.1.1'
+    });
+  });
 
   it('relativises the paths', () => {
     read('dir').should.eql({
       comp: 'resolved'
     });
-
   });
 });
