@@ -2,6 +2,11 @@ extends ../layout
 
 block head
 
+  style(type="text/css").
+    .highlight{
+      background-color: yellow;
+    }
+
   - for c in css
     link(href=c, rel="stylesheet")
 
@@ -30,8 +35,10 @@ block head
     })(this);
 
 block content
+  corespring-highlight-behavior(target=".rendering")
   pie-control-panel
     masking-button(target="#masking")
+    corespring-highlight-button
   corespring-masking#masking(target=".rendering")
 
   hr/
