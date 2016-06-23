@@ -6,6 +6,7 @@ See: [smarter_options.jpg](smarter_options.jpg)
 * highlighter 
 * mark for review 
 * student comments / notepad
+* strikethrough
 
 ### pie needs to know about the setting (in env)
 * color contrast 
@@ -16,13 +17,10 @@ See: [smarter_options.jpg](smarter_options.jpg)
 * glossary - content that may be inside the component may need to be glossarised.
 * text-to-speech
 
-
 ### unknown
-
 * expandable passages
 * asl videos - feels like its probably suited to content - not pie.
 * close captioning
-* strikethrough
 * permissive mode
 * zoom? - can't you just use the browser?
 
