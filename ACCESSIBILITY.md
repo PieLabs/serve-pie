@@ -45,3 +45,9 @@ The drawback to this is that the content that is inside a component is referenci
        <checkbox label="hi there deplete"></checkbox>
     ```
 Then wait for the dom to render - then dig through the dom looking for the word - and hooking up the glossary. There's a risk that it may interfere with content that we don't want it to interfere with? Will it work with shadowDom?
+
+
+## ASL 
+
+ASL is basically embedding video. Is there anything to be done to facilitate this?
+Or is it more just up to the components to support this in their models?

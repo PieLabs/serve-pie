@@ -22,6 +22,7 @@ const _ = require('lodash');
 const parentDir = path.normalize(path.join(process.cwd(), '..'));
 const userHome = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 const logger = logFactory.fileLogger(__filename);
+const fs = require('fs-extra');
 
 if (argv.h || argv.help) {
 
@@ -64,11 +65,13 @@ Options:
   logger.silly('itemPies', itemPies);
   logger.silly('cliPies', cliPies);
   let joinedPies = _.extend({}, itemPies, cliPies);
-
+  let resolutions = (fs.readJsonSync(root + '/dependencies.json', {throws: false}) || {}).resolutions;
+  logger.silly(`resolutions: ${JSON.stringify(resolutions)}`);
   logger.debug('joinedPies: ', joinedPies);
 
   container.run({
     pies: joinedPies,
+    resolutions: resolutions,
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
     root: root
