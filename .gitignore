@@ -6,3 +6,4 @@ typings.json
 jsconfig.json
 old.lib
 .vscode
+**/.eslintrc*

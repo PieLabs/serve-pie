@@ -1,10 +1,9 @@
-const should = require('should');
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
 require('../../../lib/log-factory').setDefaultLevel('info');
 
-function MockEmitter(emitterName) {
+function MockEmitter() {
   var handlers = {};
 
   this.on = function (name, handler) {
@@ -25,7 +24,7 @@ function MockEmitter(emitterName) {
 
 describe('bower-dir', () => {
 
-  "use strict";
+  'use strict';
 
   let BowerDir, bowerDir;
   let childProcess, fsExtra, bower, installEmitter, resolutionReport;
@@ -61,7 +60,7 @@ describe('bower-dir', () => {
       'bower': bower,
       'bower-config': {
         read: function () {
-          return { directory: 'bower_components' }
+          return { directory: 'bower_components' };
         }
       },
       './resolution-report': resolutionReport
@@ -72,7 +71,7 @@ describe('bower-dir', () => {
    
   describe('components', () => {
     it('returns the components', () => {
-      bowerDir.components().should.eql('dir/bower_components')
+      bowerDir.components().should.eql('dir/bower_components');
     });
   });
 
@@ -125,12 +124,10 @@ describe('bower-dir', () => {
 
   describe('localInstall', () => {
 
-    let result;
     beforeEach((done) => {
 
       bowerDir.localInstall({ a: 'path/to/a' })
-        .then((obj) => {
-          result = obj;
+        .then(() => {
           done();
         })
         .catch(done);
@@ -151,7 +148,8 @@ describe('bower-dir', () => {
         version: '1.0.0',
         dependencies: {
           a: 'path/to/a'
-        }
+        }, 
+        resolutions: {}
       });
     });
 
@@ -201,7 +199,7 @@ describe('bower-dir', () => {
   describe('link', () => {
 
     let successful;
-    let link, linkPromise, firstEmitter, secondEmitter;
+    let linkPromise, firstEmitter, secondEmitter;
 
     beforeEach(() => {
       firstEmitter = new MockEmitter('first');

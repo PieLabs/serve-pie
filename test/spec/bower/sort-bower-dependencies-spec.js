@@ -1,5 +1,4 @@
-"use strict";
-const should = require('should');
+'use strict';
 const _ = require('lodash');
 const logFactory = require('../../../lib/log-factory');
 logFactory.setDefaultLevel('warn');

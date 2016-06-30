@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
-const should = require('should');
 
 describe('resolution-report', () => {
 
@@ -11,8 +10,8 @@ describe('resolution-report', () => {
     return {
       name: name,
       version: version
-    }
-  }
+    };
+  };
 
   let sample = {
     a: { pkgMeta: pkgMeta('a') },
@@ -25,7 +24,7 @@ describe('resolution-report', () => {
 
     sortBowerDependencies = {
       topSortBowerNodes: sinon.stub().returnsArg(0)
-    }
+    };
 
     fsExtra = {
       readJSONSync: sinon.stub().returns({})
@@ -77,7 +76,7 @@ describe('resolution-report', () => {
             }
           }
         }
-      }
+      };
       report = new ResolutionReport(newSample);
     });
 
@@ -87,7 +86,7 @@ describe('resolution-report', () => {
 
     it('returns false if the node doesnt have a dependency', () => {
       report.pieUses('a', 'dep-two').should.eql(false);
-    })
+    });
 
   });
 });
