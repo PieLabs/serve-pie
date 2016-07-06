@@ -4,6 +4,7 @@ A development server for running pies locally.
 
 ## Install
 
+> The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
 
