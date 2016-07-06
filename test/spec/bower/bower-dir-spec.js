@@ -1,19 +1,25 @@
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
+const should = require('should'); // eslint-disable-line  
 
 require('../../../lib/log-factory').setDefaultLevel('info');
 
-function MockEmitter() {
+function MockEmitter(emitterName) {
   var handlers = {};
 
   this.on = function (name, handler) {
+
+    console.log('[MockEmitter]', emitterName, ' on: ', name, 'has handler: ', handler !== undefined);
     handlers[name] = handler;
     return this;
   };
 
   this.trigger = function () {
+    console.log('[MockEmitter] trigger: ', emitterName, arguments);
+    console.log('handlers: ', handlers);
     let args = Array.prototype.slice.call(arguments);
     let name = args.shift();
+    console.log('>> ' + name);
     if (handlers[name]) {
       handlers[name].apply(null, args);
     } else {
@@ -55,6 +61,9 @@ describe('bower-dir', () => {
     };
 
     BowerDir = proxyquire('../../../lib/bower/bower-dir', {
+      'path' : {
+        resolve: sinon.stub().returnsArg(0)
+      },
       'child_process': childProcess,
       'fs-extra': fsExtra,
       'bower': bower,
@@ -71,6 +80,8 @@ describe('bower-dir', () => {
    
   describe('components', () => {
     it('returns the components', () => {
+      console.log(bowerDir);
+      console.log(bowerDir.components());
       bowerDir.components().should.eql('dir/bower_components');
     });
   });
@@ -221,11 +232,11 @@ describe('bower-dir', () => {
             error = e;
             done();
           });
-        firstEmitter.trigger('error', new Error('e'));
+        firstEmitter.trigger('error', new Error('test-error'));
       });
 
       it('returns the error in the catch', () => {
-        error.should.eql(new Error('e'));
+        error.should.eql(new Error('test-error'));
       });
     });
     
@@ -239,7 +250,7 @@ describe('bower-dir', () => {
             error = e;
             done();
           });
-        firstEmitter.trigger('end');
+        firstEmitter.trigger('end', {src: '../', dst: '?'});
         secondEmitter.trigger('error', new Error('e'));
       });
 
@@ -256,7 +267,7 @@ describe('bower-dir', () => {
             successful = s;
             done();
           });
-        firstEmitter.trigger('end');
+        firstEmitter.trigger('end', {src: '../', dst: 'dst'});
         secondEmitter.trigger('end');
       });
 
