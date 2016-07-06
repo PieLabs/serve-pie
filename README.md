@@ -43,6 +43,8 @@ If the dependency value is a local path, the repo will be attached using `bower 
 
 ## Developing/Contributing
 
+> Note: Please ensure you've set up ssh to work with bitbucket.org before installing, so you have access to all the repos.
+
 ```
 git clone git@bitbucket.org:pietools/serve-pie.git
 cd serve-pie
