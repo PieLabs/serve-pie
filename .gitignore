@@ -7,3 +7,4 @@ jsconfig.json
 old.lib
 .vscode
 **/.eslintrc*
+.idea
