@@ -15,7 +15,6 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "engineStrict" : true,
   "jshintConfig": ".jshintrc",
   "dependencies": {
     "bluebird": "^3.4.0",
