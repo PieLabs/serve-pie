@@ -4,6 +4,14 @@ A development server for running pies locally.
 
 ## Install
 
+
+### Requirements
+
+* node >= 6.0.0
+
+> We'd recommend setting `npm config set engine-strict true` to trigger errors instead of warnings for engine mismatches.
+
+
 > The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
