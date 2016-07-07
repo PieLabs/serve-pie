@@ -1,9 +1,8 @@
-# Serve Pie 
+# Serve PIE
 
-A development server for running pies locally.
+PIE stands for Portable Interaction Element. Serve PIE is a  development server for running PIEs locally.
 
 ## Install
-
 
 ### Requirements
 
