@@ -8,18 +8,13 @@ function MockEmitter(emitterName) {
   var handlers = {};
 
   this.on = function (name, handler) {
-
-    console.log('[MockEmitter]', emitterName, ' on: ', name, 'has handler: ', handler !== undefined);
     handlers[name] = handler;
     return this;
   };
 
   this.trigger = function () {
-    console.log('[MockEmitter] trigger: ', emitterName, arguments);
-    console.log('handlers: ', handlers);
     let args = Array.prototype.slice.call(arguments);
     let name = args.shift();
-    console.log('>> ' + name);
     if (handlers[name]) {
       handlers[name].apply(null, args);
     } else {
