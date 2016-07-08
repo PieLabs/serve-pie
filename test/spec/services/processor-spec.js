@@ -1,6 +1,7 @@
 const proxyquire = require('proxyquire');
 const should = require('should');
 const sinon = require('sinon');
+const errorMsgs = require('../../../lib/services/processor/error-msgs');
 
 describe('processor', () => {
 
@@ -41,7 +42,10 @@ describe('processor', () => {
     it('returns an error if a processor can not be found', (done) => {
       processor.createOutcomes([{ component: { name: 'missing-comp', version: '1.0.0' } }], [])
         .then((outcomes) => {
-          outcomes[0].error.should.eql(processor.errors.missingComponent('missing-comp').error);
+          outcomes[0].errors.should.eql([
+            errorMsgs.missingComponent('missing-comp'),
+            errorMsgs.missingSession()
+            ]);
           done();
         }).catch(done);
     });
@@ -50,7 +54,10 @@ describe('processor', () => {
     it('returns an error if the session cant be found', (done) => {
       processor.createOutcomes([{ id: 'one', component: { name: 'comp', version: '1.0.0' } }], [])
         .then((outcomes) => {
-          outcomes[0].error.should.eql(processor.errors.missingSession('one').error);
+          outcomes[0].errors.should.eql(
+            [
+                errorMsgs.missingSession('one')
+            ]);
           done();
         }).catch(done);
     });
@@ -61,6 +68,7 @@ describe('processor', () => {
         response: 'blah'
       }])
         .then((outcomes) => {
+          console.log('outcomes: ', JSON.stringify(outcomes));
           outcomes[0].outcome.should.eql(pieProcessors[0].processor.createOutcome());
           done();
         }).catch(done);
