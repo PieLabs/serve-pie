@@ -37,12 +37,20 @@ block head
       console.log('pie.container instance constructed');
     })(this);
 
+
+    document.addEventListener('pie.envChanged', function(event){
+      var env = event.target.env;
+      if(env && env.accessibility && env.accessibility.colorContrast){
+        var renderNode = document.querySelector('.render-main');
+        renderNode.setAttribute('class', 'render-main ' + env.accessibility.colorContrast);
+      }
+    });
 block content
-  corespring-highlight-behavior(target=".rendering")
+  //- corespring-highlight-behavior(target=".rendering")
   pie-control-panel
-    masking-button(target="#masking")
-    corespring-highlight-button
-  corespring-masking#masking(target=".rendering")
+  //-   masking-button(target="#masking")
+  //-   corespring-highlight-button
+  //- corespring-masking#masking(target=".rendering")
 
   hr/
   div.render-main
