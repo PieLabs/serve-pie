@@ -58,6 +58,12 @@ If the dependency value is a local path, the repo will be attached using `bower 
 
 ## Developing/Contributing
 
+
+### Branches
+
+* develop - active dev branch
+* master - for releases only 
+
 > Note: Please ensure you've set up ssh to work with bitbucket.org before installing, so you have access to all the repos.
 
 ```
