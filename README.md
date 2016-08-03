@@ -16,10 +16,18 @@ PIE stands for Portable Interaction Element. Serve PIE is a  development server 
 npm install -g serve-pie
 
 ```
+## Supported Pies  
+
+The following Pies work with `serve-pie`: 
+
+* [corespring-pie-multiple-choice](https://bitbucket.org/pieelements/corespring-pie-multiple-choice)
+* [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
+
+These Pies should have at least one directory named `serve-pie-*`, cd into that dir and run `serve-pie`.
 
 ## Usage
 
-To use serve-pie, you run and select a root directory that has the following files:
+To use `serve-pie`, you run and select a root directory that has the following files:
 
 
 * index.html - the markup to render in the sample
