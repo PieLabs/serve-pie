@@ -1,14 +1,14 @@
 const proxyquire = require('proxyquire');
 const should = require('should');
 const sinon = require('sinon');
-const errorMsgs = require('../../../lib/services/processor/error-msgs');
+const errorMsgs = require('../../../../lib/services/processor/error-msgs');
 
 describe('processor', () => {
 
   let processor, pieProcessors;
 
   beforeEach(() => {
-    let Processor = proxyquire('../../../lib/services/processor', {});
+    let Processor = proxyquire('../../../../lib/services/processor', {});
     pieProcessors = [{
       component: { name: 'comp' },
       processor: {
@@ -75,7 +75,6 @@ describe('processor', () => {
         response: 'blah'
       }])
         .then((outcomes) => {
-          console.log('outcomes: ', JSON.stringify(outcomes));
           outcomes[0].outcome.should.eql(pieProcessors[0].processor.createOutcome());
           done();
         }).catch(done);

@@ -2,6 +2,7 @@
 
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
+const should = require('should'); // eslint-disable-line 
 
 describe('resolution-report', () => {
 
@@ -23,7 +24,9 @@ describe('resolution-report', () => {
   beforeEach(() => {
 
     sortBowerDependencies = {
-      topSortBowerNodes: sinon.stub().returnsArg(0)
+      topSortBowerNodes: sinon.spy(function(vals){
+        return {sorted: vals}
+      })
     };
 
     fsExtra = {
@@ -51,11 +54,12 @@ describe('resolution-report', () => {
       sinon.assert.calledWith(fsExtra.readJSONSync, 'path');
     });
   });
-  describe('dependencies', () => {
 
+  describe('dependencies', () => {
 
     it('returns an empty array for an empty report', () => {
       report = new ResolutionReport({});
+      console.log(report.dependencies);
       report.dependencies.should.eql([]);
     });
 

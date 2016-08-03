@@ -140,6 +140,7 @@ describe('bower-dir', () => {
 
       installEmitter.trigger('end', { a: {}, b: {} });
     });
+
     it('calls bower.commands.install', () => {
       sinon.assert.calledWith(bower.commands.install, [], sinon.match.any, {});
     });
@@ -157,10 +158,6 @@ describe('bower-dir', () => {
         }, 
         resolutions: {}
       });
-    });
-
-    it('removes the tmp bower.json', () => {
-      sinon.assert.calledWith(fsExtra.unlinkSync, 'dir/bower.json');
     });
 
     it('writes out the report', () => {

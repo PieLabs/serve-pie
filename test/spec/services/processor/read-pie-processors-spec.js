@@ -18,7 +18,7 @@ describe('read-pie-processors', () => {
       }
     };
     
-    read = proxyquire('../../lib/read-pie-processors', {
+    read = proxyquire('../../../../lib/services/processor/read-pie-processors', {
       'fs-extra' : {
         readJsonSync: sinon.stub().returns({
           name: 'name',
