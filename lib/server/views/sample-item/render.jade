@@ -37,7 +37,6 @@ block head
       console.log('pie.container instance constructed');
     })(this);
 
-
     document.addEventListener('pie.envChanged', function(event){
       var env = event.target.env;
       if(env && env.accessibility && env.accessibility.colorContrast){

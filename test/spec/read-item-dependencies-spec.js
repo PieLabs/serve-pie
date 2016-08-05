@@ -63,6 +63,19 @@ describe('read-item-dependencies', () => {
     });
   });
 
+  it('works with # in git url', () => {
+        let gitUrl = 'git@bitbucket.org:pielibs/pie-xapi.git#feature/generic'
+    fs.readJsonSync.returns({
+      dependencies: {
+        gitUrl: gitUrl 
+      }
+    });
+    
+    read('dir').should.eql({
+      gitUrl: gitUrl 
+    });
+  });
+
   it('passes through semvers', () => {
     fs.readJsonSync.returns({
       dependencies: {
