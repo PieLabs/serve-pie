@@ -44,8 +44,19 @@ block head
         renderNode.setAttribute('class', 'render-main ' + env.accessibility.colorContrast);
       }
     });
+
+    document.addEventListener('xapi-changed', function(event){
+      console.log('xapi changed', event);
+
+      if(pieXapi){
+        pieXapi.setActor(event.detail.actor);
+        pieXapi.setConfig(event.detail.config);
+      }
+    });
+
 block content
   //- corespring-highlight-behavior(target=".rendering")
+  xapi-controls
   pie-control-panel
   //-   masking-button(target="#masking")
   //-   corespring-highlight-button
