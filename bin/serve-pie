@@ -15,7 +15,6 @@ if (argv.log) {
   } else {
     try{
       let config = JSON.parse(argv.log);
-      console.log('config: ' + config);
       logFactory.setConfig(config);
     } catch(e) {
       if(fs.existsSync(argv.log)){
@@ -46,11 +45,13 @@ Options:
     - if a log level it'll apply globally
     - if a path to a log file you can configure individual levels for different loggers
     - if a json string it'll be parsed and set
+  --log-requests     - log requests to the server endpoints
   --fullInstall      - run a full install (with bower and resolution reports) (default: true)
 `);
   process.exit(0);
 } else {
 
+  let logRequests = argv['log-requests'];
   let container = new PieContainer();
   let cliPies = (() => {
     let arr = _.isArray(argv.pie) ? argv.pie : [argv.pie];
@@ -79,13 +80,14 @@ Options:
   let resolutions = (fs.readJsonSync(root + '/dependencies.json', {throws: false}) || {}).resolutions;
   logger.silly(`resolutions: ${JSON.stringify(resolutions)}`);
   logger.debug('joinedPies: ', joinedPies);
-
+  
   container.run({
     pies: joinedPies,
     resolutions: resolutions,
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
-    root: root
+    root: root,
+    logRequests: logRequests
   });
 }
 
