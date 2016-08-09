@@ -71,6 +71,13 @@ If the dependency value is a local path, the repo will be attached using `bower 
 * ....
 
 
+#### CLI Examples: 
+
+```
+serve-pie --log '{"empty": "silly", "default" : "off"}' --event-handler ./pie-to-xapi-events.js
+```
+
+
 ## Developing/Contributing
 
 

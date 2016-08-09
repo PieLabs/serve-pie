@@ -47,6 +47,7 @@ Options:
     - if a json string it'll be parsed and set
   --log-requests     - log requests to the server endpoints
   --fullInstall      - run a full install (with bower and resolution reports) (default: true)
+  --event-handler    - a path to a external js module that exposes a 'handle' method
 `);
   process.exit(0);
 } else {
@@ -80,14 +81,14 @@ Options:
   let resolutions = (fs.readJsonSync(root + '/dependencies.json', {throws: false}) || {}).resolutions;
   logger.silly(`resolutions: ${JSON.stringify(resolutions)}`);
   logger.debug('joinedPies: ', joinedPies);
-  
   container.run({
     pies: joinedPies,
     resolutions: resolutions,
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
     root: root,
-    logRequests: logRequests
+    logRequests: logRequests, 
+    eventHandlerPath: argv['event-handler'] 
   });
 }
 
