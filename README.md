@@ -16,13 +16,15 @@ The modifications to allow this to run are:
 * render.jade - init the lrs config 
 * render.jade - include a control panel to display the lrs config.
 
-
 ### CLI Params
 
 * `--lrs-endpoint`
 * `--lrs-user`
 * `--lrs-password`
 * `--lrs-email`
+
+#### Demo 
+[corespring-pie-multiple-choice#xapi-test](https://bitbucket.org/pieelements/corespring-pie-multiple-choice/branch/xapi-test) has a demo that can be run.
 
 ## Install
 
