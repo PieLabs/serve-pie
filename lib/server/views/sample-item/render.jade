@@ -54,6 +54,24 @@ block head
       }
     });
 
+    document.addEventListener('DOMContentLoaded', function(){
+
+      var xapiControls = document.querySelector('xapi-controls');
+      xapiControls.config = {
+        endpoint: '#{lrs.endpoint}',
+        user: '#{lrs.user}',
+        password: '#{lrs.password}'
+      };
+
+      xapiControls.actor = {
+        user: '#{lrs.user}',
+        email: '#{lrs.email}'
+      };
+
+      var name = '#{name} - ' + new Date().getTime();
+      pieXapi.setObject('http://localhost:5000', name);
+    });
+
 block content
   //- corespring-highlight-behavior(target=".rendering")
   xapi-controls

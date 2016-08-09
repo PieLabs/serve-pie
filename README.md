@@ -2,6 +2,28 @@
 
 PIE stands for Portable Interaction Element. Serve PIE is a  development server for running PIEs locally.
 
+
+## XApi example branch
+
+This branch is an example of a container interacting with [xapi](https://www.adlnet.gov/adl-research/performance-tracking-analysis/experience-api/).
+
+> These modifications are only present to illustrate how interaction between *a* container and xapi might work. They are not intended to be part of `serve-pie` tooling.
+
+The modifications to allow this to run are: 
+
+* sample-item.js - read in lrs config from `process.argv` and passe them to `render.jade`.
+* render.jade - call `setObject` on `pieXapi` global.
+* render.jade - init the lrs config 
+* render.jade - include a control panel to display the lrs config.
+
+
+### CLI Params
+
+* `--lrs-endpoint`
+* `--lrs-user`
+* `--lrs-password`
+* `--lrs-email`
+
 ## Install
 
 ### Requirements
