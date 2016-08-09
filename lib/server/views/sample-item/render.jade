@@ -25,17 +25,33 @@ block head
 
   script.
 
+    window.serverEndpoints = !{JSON.stringify(serverEndpoints || {})};
+
     (function(root){
       var model = !{JSON.stringify(model)};
       var env = {mode : 'gather', locale: 'en_US'};
       var sessions = [];
       var servePie = {
-        processor: new ServePieProcessor(!{JSON.stringify(processingEndpoints)})
+        processor: new ServePieProcessor(window.serverEndpoints)
       }
       
       pie.container = new root.pie.Container(model.components, env, sessions, servePie.processor);
+      
+      document.addEventListener('pie', function(event){
+        var method = serverEndpoints.event.method;
+        var path = serverEndpoints.event.path;
+        $http(path)[method.toLowerCase()](event.detail)
+        .then(function(){
+          console.log('event sent');
+        })
+        .catch(function(err){
+          console.error('event not sent', err);
+        });
+      });
+
       console.log('pie.container instance constructed');
     })(this);
+
 
     document.addEventListener('pie.envChanged', function(event){
       var env = event.target.env;
@@ -45,36 +61,8 @@ block head
       }
     });
 
-    document.addEventListener('xapi-changed', function(event){
-      console.log('xapi changed', event);
-
-      if(pieXapi){
-        pieXapi.setActor(event.detail.actor);
-        pieXapi.setConfig(event.detail.config);
-      }
-    });
-
-    document.addEventListener('DOMContentLoaded', function(){
-
-      var xapiControls = document.querySelector('xapi-controls');
-      xapiControls.config = {
-        endpoint: '#{lrs.endpoint}',
-        user: '#{lrs.user}',
-        password: '#{lrs.password}'
-      };
-
-      xapiControls.actor = {
-        user: '#{lrs.user}',
-        email: '#{lrs.email}'
-      };
-
-      var name = '#{name} - ' + new Date().getTime();
-      pieXapi.setObject('http://localhost:5000', name);
-    });
-
 block content
   //- corespring-highlight-behavior(target=".rendering")
-  xapi-controls
   pie-control-panel
   //-   masking-button(target="#masking")
   //-   corespring-highlight-button
