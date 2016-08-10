@@ -2,20 +2,18 @@
 
 PIE stands for Portable Interaction Element. Serve PIE is a  development server for running PIEs locally.
 
+## `feature/event-support` branch
 
-## event support example branch
+This branch adds the ability to pass events that are happening within the container to an external module.
 
-...TODO...
-
-### CLI Params
-
-* `--lrs-endpoint`
-* `--lrs-user`
-* `--lrs-password`
-* `--lrs-email`
+### changes
+* expose a `POST event` endpoint to consume client events (like user interactions)
+* dispatch some events when serving the page.
+* pass a `dispatchEvent` function to a `pie's` processing logic.
+* add a new CLI param `--event-handler` to allow an external module handle the events and do what it wants with them.
 
 #### Demo 
-[corespring-pie-multiple-choice#xapi-test](https://bitbucket.org/pieelements/corespring-pie-multiple-choice/branch/xapi-test) has a demo that can be run.
+[corespring-pie-multiple-choice#xapi-test](https://bitbucket.org/pieelements/corespring-pie-multiple-choice/branch/xapi-test) has a demo that can be run: `serve-pie-demo` - see the `README.md`.
 
 ## Install
 
