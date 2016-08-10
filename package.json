@@ -1,7 +1,7 @@
 {
   "name": "serve-pie",
   "version": "0.0.1",
-  "repository": "git@bitbucket.org/pietools/serve-pie.git",
+  "repository": "git@github.com/PieLabs/serve-pie.git",
   "license": "MIT",
   "preferGlobal": true,
   "description": "A tool to run sample content that uses `pie` elements",
