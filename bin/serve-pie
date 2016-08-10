@@ -47,7 +47,7 @@ Options:
     - if a json string it'll be parsed and set
   --log-requests     - log requests to the server endpoints
   --fullInstall      - run a full install (with bower and resolution reports) (default: true)
-  --event-handler    - a path to a external js module that exposes a 'handle' method
+  --event-handler    - a path to a external js module that exposes a constructor that creates an instance with a 'handle' method
 `);
   process.exit(0);
 } else {
