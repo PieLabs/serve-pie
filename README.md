@@ -24,7 +24,7 @@ bower install
 
 The following Pies work with `serve-pie`: 
 
-* [corespring-pie-multiple-choice](https://bitbucket.org/pieelements/corespring-pie-multiple-choice)
+* [corespring-pie-multiple-choice](https://github.com/PieElements/corespring-pie-multiple-choice)
 * [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
 
 These Pies should have at least one directory named `serve-pie-*`, cd into that dir and run `serve-pie`.

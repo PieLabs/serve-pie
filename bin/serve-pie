@@ -1,28 +1,36 @@
 #!/usr/bin/env node
 
+
 "use strict";
 
 process.title = 'serve-pie';
 
 const argv = require('minimist')(process.argv);
-
+const fs = require('fs-extra');
 const logFactory = require('../lib/log-factory');
-
-if (argv.log) {
-  if (logFactory.isLogLevel(argv.log)) {
-    logFactory.setDefaultLevel(argv.log);
-  } else {
-    logFactory.setConfigFromFile(argv.log);
-  }
-}
-
 const PieContainer = require('../lib/serve-pie');
 const path = require('path');
 const _ = require('lodash');
 const parentDir = path.normalize(path.join(process.cwd(), '..'));
 const userHome = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
 const logger = logFactory.fileLogger(__filename);
-const fs = require('fs-extra');
+
+if (argv.log) {
+  if (logFactory.isLogLevel(argv.log)) {
+    logFactory.setDefaultLevel(argv.log);
+  } else {
+    try {
+      let config = JSON.parse(argv.log);
+      logFactory.setConfig(config);
+    } catch (e) {
+      if (fs.existsSync(argv.log)) {
+        logFactory.setConfigFromFile(argv.log);
+      } else {
+        console.error('can not configure logging using cli param value: ' + argv.log);
+      }
+    }
+  }
+}
 
 if (argv.h || argv.help) {
 
@@ -32,9 +40,11 @@ Options:
   --root [path]      - the path to the samples (default: ${process.cwd()})
   --pie <pie_folder> - the path to the pie_folder to preview (default: ${parentDir})
     - you can add '--pie' as many times as you want.
-  --log              - either a log level or a path to a log config file
+  --log [level|path|json_string]  - either a log level or a path to a log config file
     - if a log level it'll apply globally
     - if a path to a log file you can configure individual levels for different loggers
+    - if a json string it'll be parsed and set
+  --logHttpRequests  - log HTTP requests to the server 
   --fullInstall      - run a full install (with bower and resolution reports) (default: true)
 `);
   process.exit(0);
@@ -48,7 +58,7 @@ Options:
         let resolved = path.resolve(p);
         let stat = require('fs-extra').lstatSync(resolved);
         console.log('resolved: ', resolved);
-        if(stat.isDirectory()){
+        if (stat.isDirectory()) {
           let name = path.basename(resolved);
           acc[name] = resolved;
         }
@@ -65,7 +75,7 @@ Options:
   logger.silly('itemPies', itemPies);
   logger.silly('cliPies', cliPies);
   let joinedPies = _.extend({}, itemPies, cliPies);
-  let resolutions = (fs.readJsonSync(root + '/dependencies.json', {throws: false}) || {}).resolutions;
+  let resolutions = (fs.readJsonSync(root + '/dependencies.json', { throws: false }) || {}).resolutions;
   logger.silly(`resolutions: ${JSON.stringify(resolutions)}`);
   logger.debug('joinedPies: ', joinedPies);
 
@@ -74,7 +84,8 @@ Options:
     resolutions: resolutions,
     fullInstall: argv.fullInstall,
     port: argv.p || argv.port || 5000,
-    root: root
+    root: root,
+    logHttpRequests: argv.logHttpRequests
   });
 }
 
