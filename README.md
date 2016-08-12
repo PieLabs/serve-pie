@@ -14,8 +14,12 @@ PIE stands for Portable Interaction Element. Serve PIE is a  development server 
 > The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
+bower install
 
 ```
+
+> If you're client libs get out of date run `rm -fr lib/server/components && bower install` to update.
+
 ## Supported Pies  
 
 The following Pies work with `serve-pie`: 
