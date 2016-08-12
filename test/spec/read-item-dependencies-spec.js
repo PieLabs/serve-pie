@@ -9,6 +9,7 @@ describe('read-item-dependencies', () => {
   beforeEach(() => {
 
     fs = {
+      existsSync: sinon.stub().returns(true),
       readJsonSync: sinon.stub().returns({
         dependencies: {
           comp :  'path'
@@ -26,6 +27,12 @@ describe('read-item-dependencies', () => {
       'fs-extra': fs,
       path: path
     });
+  });
+
+  it('throws an error if the file doesnt exist', () => {
+    fs.existsSync.returns(false);
+    should.throws( 
+      () => read('i-dont-exist'));
   });
 
   it('skips paths that do not exist', () => {

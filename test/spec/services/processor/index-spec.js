@@ -12,14 +12,11 @@ describe('processor', () => {
     pieProcessors = [{
       component: { name: 'comp' },
       processor: {
-        createOutcome: () => {
-          return { correctness: 'mocked' };
-        },
         clean: (q) => {
           delete q.removeMe;
           return q;
         },
-        state: (question, session, env) => {
+        model: (question, session, env) => {
           return {
             question: question,
             session: session,
@@ -34,51 +31,6 @@ describe('processor', () => {
       }];
 
     processor = new Processor(pieProcessors);
-  });
-
-  describe('createOutcomes', () => {
-
-    it('return an empty array, for empty questions', (done) => {
-      processor.createOutcomes([], [])
-        .then((outcomes) => {
-          outcomes.should.eql([]);
-          done();
-        }).catch(done);
-    });
-
-    it('returns an error if a processor can not be found', (done) => {
-      processor.createOutcomes([{ component: { name: 'missing-comp', version: '1.0.0' } }], [])
-        .then((outcomes) => {
-          outcomes[0].errors.should.eql([
-            errorMsgs.missingComponent('missing-comp'),
-            errorMsgs.missingSession()
-          ]);
-          done();
-        }).catch(done);
-    });
-
-
-    it('returns an error if the session cant be found', (done) => {
-      processor.createOutcomes([{ id: 'one', component: { name: 'comp', version: '1.0.0' } }], [])
-        .then((outcomes) => {
-          outcomes[0].errors.should.eql(
-            [
-              errorMsgs.missingSession('one')
-            ]);
-          done();
-        }).catch(done);
-    });
-
-    it('returns the outcome', (done) => {
-      processor.createOutcomes([{ id: 'one', component: { name: 'comp', version: '1.0.0' } }], [{
-        id: 'one',
-        response: 'blah'
-      }])
-        .then((outcomes) => {
-          outcomes[0].outcome.should.eql(pieProcessors[0].processor.createOutcome());
-          done();
-        }).catch(done);
-    });
   });
 
   describe('clean', () => {
@@ -108,7 +60,7 @@ describe('processor', () => {
   });
 
 
-  describe('state', () => {
+  describe('model', () => {
 
     let comp;
     let session;
@@ -120,14 +72,14 @@ describe('processor', () => {
       env = { locale: 'en_US' };
     });
 
-    it('calls state on the processors', () => {
+    it('calls model on the processors', () => {
 
-      processor.state(
+      processor.model(
         [{ id: 'one', component: { name: 'comp' } }],
         [{ id: 'one', response: 'apple' }],
         { locale: 'en_US' }
-      ).then((states) => {
-        states[0].should.eql({
+      ).then((models) => {
+        models[0].should.eql({
           question: question,
           session: session,
           env: env
