@@ -1,5 +1,24 @@
-extends ../layout
+doctype html
+html
+  head
+    link( rel="import" href="/components/polymer/polymer.html")
+    link( rel="import" href="/components/pie-component-page/pie-component-page.html")
 
-h1 Main...
+  body
+    pie-component-page
+    
+    script.
+      document.addEventListener('DOMContentLoaded', function(){
+        var el = document.querySelector('pie-component-page');
+        if(el){
+          el.name = '#{name}';
+          el.version = '#{version}';
+          el.repositoryUrl = '#{repositoryUrl}';
+          el.readme = '!{readme}';
+          el.demo = '#{demo}'
+          el.schemas = !{JSON.stringify(schemas)};
+        }
+      });
 
-pie-component-page/
+
+
