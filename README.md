@@ -14,13 +14,17 @@ PIE stands for Portable Interaction Element. Serve PIE is a  development server 
 > The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
+bower install
 
 ```
+
+> If you're client libs get out of date run `rm -fr lib/server/components && bower install` to update.
+
 ## Supported Pies  
 
 The following Pies work with `serve-pie`: 
 
-* [corespring-pie-multiple-choice](https://bitbucket.org/pieelements/corespring-pie-multiple-choice)
+* [corespring-pie-multiple-choice](https://github.com/PieElements/corespring-pie-multiple-choice)
 * [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
 
 These Pies should have at least one directory named `serve-pie-*`, cd into that dir and run `serve-pie`.

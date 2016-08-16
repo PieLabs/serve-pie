@@ -12,7 +12,7 @@ describe('read-item-dependencies', () => {
       existsSync: sinon.stub().returns(true),
       readJsonSync: sinon.stub().returns({
         dependencies: {
-          comp :  'path'
+          comp: 'path'
         }
       }),
       lstatSync: sinon.stub().returns({ isDirectory: () => true })
@@ -31,7 +31,7 @@ describe('read-item-dependencies', () => {
 
   it('throws an error if the file doesnt exist', () => {
     fs.existsSync.returns(false);
-    should.throws( 
+    should.throws(
       () => read('i-dont-exist'));
   });
 
@@ -54,8 +54,21 @@ describe('read-item-dependencies', () => {
       }
     });
 
-    fs.lstatSync.returns({isDirectory: () => false});
+    fs.lstatSync.returns({ isDirectory: () => false });
     read('dir').should.eql({});
+  });
+
+  it('works with # in git url', () => {
+    let gitUrl = 'git@bitbucket.org:pielibs/pie-xapi.git#feature/generic'
+    fs.readJsonSync.returns({
+      dependencies: {
+        gitUrl: gitUrl
+      }
+    });
+
+    read('dir').should.eql({
+      gitUrl: gitUrl
+    });
   });
 
   it('passes through git urls', () => {
@@ -64,7 +77,7 @@ describe('read-item-dependencies', () => {
         gitUrl: 'git@github.com:blah/blah.git'
       }
     });
-    
+
     read('dir').should.eql({
       gitUrl: 'git@github.com:blah/blah.git'
     });
@@ -76,7 +89,7 @@ describe('read-item-dependencies', () => {
         semver: '1.1.1'
       }
     });
-    
+
     read('dir').should.eql({
       semver: '1.1.1'
     });

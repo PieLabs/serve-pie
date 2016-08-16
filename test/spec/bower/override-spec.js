@@ -34,7 +34,7 @@ describe('override', () => {
     });
 
   });
-  
+
   describe('apply', () => {
 
 
@@ -46,7 +46,15 @@ describe('override', () => {
         });
         override.apply([]).should.eql(['a.js']);
       });
+      
+      it('removes undefined', () => {
+        let override = new Override({
+          add: ['a.js']
+        });
+        override.apply([undefined]).should.eql(['a.js']);
+      });
     });
+
 
     describe('remove', () => {
 
