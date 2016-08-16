@@ -1,4 +1,4 @@
-extends ../layout
+extends ./layout
 
 block head
 
@@ -13,12 +13,12 @@ block head
   - for c in css
     link(href=c, rel="stylesheet")
 
-  link(rel='stylesheet', href='/stylesheets/render.css')
+  link(rel='stylesheet', href='stylesheets/render.css')
 
   - for j in js
     script(type="text/javascript", src=j)
   
-  script(type="text/javascript", src="/js/serve-pie-processor.js")
+  script(type="text/javascript", src="js/serve-pie-processor.js")
 
   - for i in htmlImports
     link(rel="import", href=i)
