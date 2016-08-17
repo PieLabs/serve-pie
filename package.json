@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "./bin/serve-pie",
-    "postinstall": "./bin/_postinstall"
+    "postinstall": "bower install --force"
   },
   "engines": {
     "node": ">=6.0.0"
