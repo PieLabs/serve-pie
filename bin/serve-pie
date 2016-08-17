@@ -57,6 +57,7 @@ Options:
   if(fs.existsSync(gitDir)){
     let result = execSync(`git --git-dir=${gitDir}/.git --work-tree=${gitDir} rev-parse --short HEAD`, {encoding: 'utf8'});
     console.log(result.trim());
+    console.log('bower:', require('bower').version);
   } else {
     console.log("?");
   }
