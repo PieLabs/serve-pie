@@ -10,7 +10,6 @@
   },
   "scripts": {
     "start": "./bin/serve-pie",
-    "preinstall": "./bin/_preinstall",
     "postinstall": "./bin/_postinstall"
   },
   "engines": {

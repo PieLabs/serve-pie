@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-echo "remove previous bower components dir"
-rm -fr lib/server/components 
