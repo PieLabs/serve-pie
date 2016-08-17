@@ -4,5 +4,5 @@
 
 process.title = 'serve-pie';
 const argv = require('minimist')(process.argv);
-require('../lib/new-serve-pie')(argv);
+require('../lib/serve-pie')(argv);
 
