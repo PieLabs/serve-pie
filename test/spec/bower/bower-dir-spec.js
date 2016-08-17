@@ -142,7 +142,7 @@ describe('bower-dir', () => {
     });
 
     it('calls bower.commands.install', () => {
-      sinon.assert.calledWith(bower.commands.install, [], sinon.match.any, {});
+      sinon.assert.calledWith(bower.commands.install, [], sinon.match.any, { cwd: 'dir'});
     });
 
     it('calls resolutionReport.fromPath', () => {
