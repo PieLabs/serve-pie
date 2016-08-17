@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "./bin/serve-pie",
-    "postinstall": "bower install"
+    "preinstall": "./bin/_preinstall",
+    "postinstall": "./bin/_postinstall"
   },
   "engines": {
     "node": ">=6.0.0"
