@@ -48,6 +48,18 @@ Options:
   --fullInstall      - run a full install (with bower and resolution reports) (default: true)
 `);
   process.exit(0);
+} else if(argv.v || argv.version){
+
+  let gitDir = path.resolve(__dirname, '..');
+
+  const execSync = require('child_process').execSync;
+
+  if(fs.existsSync(gitDir)){
+    let result = execSync('git rev-parse --short HEAD', {encoding: 'utf8'});
+    console.log(result.trim());
+  } else {
+    console.log("?");
+  }
 } else {
 
   let container = new PieContainer();
