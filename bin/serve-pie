@@ -51,11 +51,11 @@ Options:
 } else if(argv.v || argv.version){
 
   let gitDir = path.resolve(__dirname, '..');
-
+  console.log('dir: ', gitDir);
   const execSync = require('child_process').execSync;
 
   if(fs.existsSync(gitDir)){
-    let result = execSync('git rev-parse --short HEAD', {encoding: 'utf8'});
+    let result = execSync(`git --git-dir=${gitDir}/.git --work-tree=${gitDir} rev-parse --short HEAD`, {encoding: 'utf8'});
     console.log(result.trim());
   } else {
     console.log("?");
