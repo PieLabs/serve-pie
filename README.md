@@ -23,6 +23,7 @@ bower install
 The following Pies work with `serve-pie`: 
 
 * [corespring-pie-multiple-choice](https://github.com/PieElements/corespring-pie-multiple-choice)
+* [khan-perseus-plotter](https://github.com/PieLabs/khan-perseus-plotter)
 * [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
 
 ## Usage
@@ -82,3 +83,9 @@ mocha --debug-brk test/spec/path/to/spec.js
 ### TODOS
 
 * integration testing
+* support for references in json-schemas
+* add `oneOf` and `anyOf` etc support to json-schemas
+* improve ui of schema renderer for different types (eg: min/max etc)
+* fix markdown styling of readme
+* Re-add the accessibility controls (maybe put them behind a flag? `--with-accessibility-tools`)
+* add the show/hide session toggle from ev's prototype (https://share.proto.io/JT9K7Q/)
