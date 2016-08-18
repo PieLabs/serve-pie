@@ -24,6 +24,7 @@ The following Pies work with `serve-pie`:
 
 * [corespring-pie-multiple-choice](https://github.com/PieElements/corespring-pie-multiple-choice)
 * [khan-perseus-plotter](https://github.com/PieLabs/khan-perseus-plotter)
+* [h5p-image-hotspot](https://github.com/PieLabs/h5p-image-hotspot)
 * [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
 
 ## Usage
