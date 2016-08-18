@@ -1,6 +1,6 @@
 # serve-pie
 
-PIE stands for Portable Interaction Element. Serve PIE is a development server for running PIEs locally.
+A development server for running [pies](http://github.com/PieLabs/pie) locally.
 
 ## Install
 
@@ -10,7 +10,7 @@ PIE stands for Portable Interaction Element. Serve PIE is a development server f
 
 > We'd recommend setting `npm config set engine-strict true` to trigger errors instead of warnings for engine mismatches.
 
-> The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
+> !! The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
 bower install
@@ -34,6 +34,8 @@ For information on the directory structure see the [pie spec](http://github.com/
 ### CLI Options
 
 run `serve-pie --help` to see usage.
+
+run `serve-pie --version` to see the version.
 
 ## Developing/Contributing
 
