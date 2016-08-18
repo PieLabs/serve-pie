@@ -5,9 +5,11 @@
   "dependencies": {
     "pie-container": "git@github.com:PieLabs/pie-container.git#develop",
     "pie-angular-one-five-support": "git@github.com:PieLabs/pie-angular-one-five-support.git",
-    "pie-react-support": "git@github.com:PieLabs/pie-react-support.git"
+    "pie-react-support": "git@github.com:PieLabs/pie-react-support.git",
+    "pie-component-page": "git@github.com:PieLabs/pie-component-page.git"
   },
   "resolutions": {
-    "pie-container": "develop"
+    "pie-container": "develop",
+    "lodash": "^4.15.0"
   }
 }

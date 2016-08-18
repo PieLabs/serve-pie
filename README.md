@@ -1,6 +1,6 @@
-# Serve PIE
+# serve-pie
 
-PIE stands for Portable Interaction Element. Serve PIE is a  development server for running PIEs locally.
+PIE stands for Portable Interaction Element. Serve PIE is a development server for running PIEs locally.
 
 ## Install
 
@@ -10,15 +10,13 @@ PIE stands for Portable Interaction Element. Serve PIE is a  development server 
 
 > We'd recommend setting `npm config set engine-strict true` to trigger errors instead of warnings for engine mismatches.
 
-
 > The command below wont work until we have published the library. For now see [Developing/Contributing](#/Developing/Contributing)
 ```
 npm install -g serve-pie
 bower install
-
 ```
 
-> If you're client libs get out of date run `rm -fr lib/server/components && bower install` to update.
+> If your client libs get out of date run `bower install --force` to update.
 
 ## Supported Pies  
 
@@ -27,62 +25,29 @@ The following Pies work with `serve-pie`:
 * [corespring-pie-multiple-choice](https://github.com/PieElements/corespring-pie-multiple-choice)
 * [corespring-pie-true-false](https://bitbucket.org/pieelements/corespring-pie-true-false)
 
-These Pies should have at least one directory named `serve-pie-*`, cd into that dir and run `serve-pie`.
-
 ## Usage
 
-To use `serve-pie`, you run and select a root directory that has the following files:
+To use `serve-pie`, run it in a `pie` compatible directory.
 
-
-* index.html - the markup to render in the sample
-* index.json - the data model for the pies declared in the layout
-* dependencies.json (optional [can use `--pie` as an alternative) - defines how to resolve the pies defined above
-
-> By default the current directory is treated as the root. To change the root use `--root [path]` in the cli.
-
-The dependencies.json should have the following form:
-```json
-{
- "dependencies" : {
-   "local-pie" : "../",
-   "git-pie" : "git@git.com:org/repo.git"
- } 
-}
-```
-
-If the dependency value is a local path, the repo will be attached using `bower link`, allowing you to then make changes to the source and have them reflected in the sample item.
+For information on the directory structure see the [pie spec](http://github.com/PieLabs/pie).
 
 ### CLI Options
 
-* --pie - set a path to a local pie dependency (will override what's in dependencies.json). you can have as many of these as you want
-* --log [error|warn|info|verbose|debug|silly|path-to-config-file] - a log level or a path to a log config file.
-* --root [path] the path to be used as the root, should contain the sample files above.
-* ....
-
+run `serve-pie --help` to see usage.
 
 ## Developing/Contributing
-
 
 ### Branches
 
 * develop - active dev branch
 * master - for releases only 
 
-> Note: Please ensure you've set up ssh to work with bitbucket.org before installing, so you have access to all the repos.
-
 ```
-git clone git@bitbucket.org:pietools/serve-pie.git
+git clone git@github.com:PieLabs/serve-pie.git
 cd serve-pie
 npm install # install the dependencies
 npm link # link serve-pie as a global executable
 
-```
-
-### Run a test sample
-
-```
-cd test/resources/sample-content/bower-style/sample-item
-serve-pie 
 ```
 
 #### Debug
@@ -108,45 +73,10 @@ mocha test/spec/**/*.js
 ##### debug tests: 
 
 ```
-
 mocha --debug-brk test/spec/path/to/spec.js
 # then you can attach a debugger to localhost:5858
-# eg: npm install -g node-inspector
-#     node-debug _mocha test/spec/**
 ```
 
 ### TODOS
-* what to do about accessibility - on load can you pass in accessiblity opts?
-  * or do you pass them in at runtime?
-  * for now i'm going to set it up as runtime - as this fits with what's currently there.
 
-* formalize outcome inputs and outputs (questions, sessions, settings) => outcome what does it return?
-* ~~allow it to work with dev style pie elements aka paths are local. (need to do a bower link for these).~~
-* schema support
-* styling
-* ~~assets in items~~
-* assets in pies?
-  * either passed in from the model (no problem there)
-  * baked in?
-
-<template>
-  <img src="my-img.jpg"/>
-</template>
-
-How do we serve this? it'll be rendered on the page as "my-img.jpg"
-
-
-
-> load( {asl: true} ) ==> { model: { text: '.., aslVid: '..' }}
-
-or 
-
-load() ==> { model: text: '..', aslVid: '..'}}
-if( env.accessibility.asl ) {
-  ...
-} 
-
-if(model.aslVid){
-}
-
- 
+* integration testing
