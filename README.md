@@ -90,3 +90,4 @@ mocha --debug-brk test/spec/path/to/spec.js
 * fix markdown styling of readme
 * Re-add the accessibility controls (maybe put them behind a flag? `--with-accessibility-tools`)
 * add the show/hide session toggle from ev's prototype (https://share.proto.io/JT9K7Q/)
+* setup release process (tagging, merging to master, publishing etc)
