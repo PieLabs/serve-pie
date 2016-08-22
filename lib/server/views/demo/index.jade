@@ -105,11 +105,15 @@ block head
     showPreview(false);
 
 block content
-  //- corespring-highlight-behavior(target=".rendering")
+
+  - if(addAccessibilityComponents)
+    corespring-highlight-behavior(target=".rendering")
+    corespring-masking#masking(target=".rendering")
+
   pie-control-panel
-  //-   masking-button(target="#masking")
-  //-   corespring-highlight-button
-  //- corespring-masking#masking(target=".rendering")
+    - if(addAccessibilityComponents)
+      masking-button(target="#masking")
+      corespring-highlight-button
 
   hr/
   div.main
