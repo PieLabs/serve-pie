@@ -6,22 +6,21 @@
   background-color: black;
 }
 
-.render-main{
+.main{
   display: flex;
-  padding: 10px;
 
-  .rendering {
-    flex: 1 1 0;
+  .rendering{
+    padding-right: 10px;
+    flex: 1 1 auto;
   }
 
-  .session-preview {
+  .session-preview.hide-session{
+    opacity: 0.0;
+  }
+  
+  .session-preview{
     padding-left: 10px;
     flex: 1 1 auto;
-    position: relative;
-
-    textarea{
-      position: absolute;
-      box-sizing: border-box;
-    }
+    transition: opacity 0.25s ease;
   }
 }

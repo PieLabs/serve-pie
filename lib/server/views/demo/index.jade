@@ -10,15 +10,18 @@ block head
       text-decoration: line-through;
     }
 
+
   - for c in css
     link(href=c, rel="stylesheet")
 
   link(rel='stylesheet', href='stylesheets/render.css')
+  link(rel='stylesheet', type="text/css", href="/components/prism/themes/prism.css")
 
   - for j in js
     script(type="text/javascript", src=j)
   
   script(type="text/javascript", src="js/serve-pie-processor.js")
+
 
   - for i in htmlImports
     link(rel="import", href=i)
@@ -35,25 +38,71 @@ block head
 
       pie.container = new root.pie.Container(model.components, env, sessions, servePie.processor);
       console.log('pie.container instance constructed');
+
+      var lastString = '';
+
+      function logSession() {
+        var jsonString = JSON.stringify(sessions, null, '  ');
+        if(jsonString !== lastString){
+          $('code').html(jsonString);
+          if(window['Prism']){
+            Prism.highlightAll();
+          }
+          lastString = jsonString;
+        }
+        setTimeout(logSession, 500);
+      }
+      
+      logSession();
+
+
     })(this);
 
 
-    document.addEventListener('pie.envChanged', function(event){
-      var env = event.target.env;
-      if(env && env.accessibility && env.accessibility.colorContrast){
-        var renderNode = document.querySelector('.render-main');
-        renderNode.setAttribute('class', 'render-main ' + env.accessibility.colorContrast);
+    var initialised = false;
+    
+    document.addEventListener('pie.container', function(event){
+      if(event.detail.type === 'modelUpdated' && !initialised){
+        initialised = true;
+        showPreview(true);
       }
     });
 
-    document.addEventListener('pie.showSession', function(value) {
-      document.querySelector('.session-preview').style.visibility = (value.detail === true) ? "visible" : "hidden";
+    document.addEventListener('pie.envChanged', function(event){
+      var env = event.target.env;
+      var contrast;
+      if(env && env.accessibility && env.accessibility.colorContrast){
+        contrast = env.accessibility.colorContrast;
+      } 
+
+      if(contrast === 'black_on_white'){
+        $('.main').removeClass('black_on_rose');
+        $('.main').removeClass('white_on_black');
+      } else {
+        $('.main').addClass(env.accessibility.colorContrast);
+      }
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    function showPreview(show){
       var panel = document.querySelector('pie-control-panel');
-      panel.showSession = true;
+      
+      if(panel){
+        panel.showSession = show;
+      }
+
+      if(show){
+        $('.session-preview').removeClass('hide-session');
+      } else {
+        $('.session-preview').addClass('hide-session');
+      }
+    }
+
+    document.addEventListener('pie.showSession', function(value) {
+      var show = value.detail === true;
+      showPreview(show);
     });
+
+    showPreview(false);
 
 block content
   //- corespring-highlight-behavior(target=".rendering")
@@ -63,9 +112,13 @@ block content
   //- corespring-masking#masking(target=".rendering")
 
   hr/
-  div.render-main
+  div.main
     div.rendering
       | !{markup}
     div.session-preview
-      h4 session:
-      textarea(cols="30", rows="20")
+      pre 
+        code.language-json
+  
+  script(type="text/javascript", src="/components/prism/prism.js")
+  script(type="text/javascript", src="/components/prism/components/prism-json.min.js")
+  script(type="text/javascript", src="/components/prism/components/prism-javascript.min.js")
