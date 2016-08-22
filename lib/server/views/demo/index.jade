@@ -47,7 +47,7 @@ block head
     });
 
     document.addEventListener('pie.showSession', function(value) {
-      document.querySelector('textarea').style.display = (value.detail === true) ? "inline-block" : "none";
+      document.querySelector('.session-preview').style.visibility = (value.detail === true) ? "visible" : "hidden";
     });
 
     document.addEventListener('DOMContentLoaded', function() {
