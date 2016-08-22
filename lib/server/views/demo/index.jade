@@ -31,8 +31,8 @@ block head
       var sessions = [];
       var servePie = {
         processor: new ServePieProcessor(!{JSON.stringify(processingEndpoints)})
-      }
-      
+      };
+
       pie.container = new root.pie.Container(model.components, env, sessions, servePie.processor);
       console.log('pie.container instance constructed');
     })(this);
@@ -45,6 +45,16 @@ block head
         renderNode.setAttribute('class', 'render-main ' + env.accessibility.colorContrast);
       }
     });
+
+    document.addEventListener('pie.showSession', function(value) {
+      document.querySelector('textarea').style.display = (value.detail === true) ? "inline-block" : "none";
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var panel = document.querySelector('pie-control-panel');
+      panel.showSession = true;
+    });
+
 block content
   //- corespring-highlight-behavior(target=".rendering")
   pie-control-panel
