@@ -6,7 +6,8 @@
     "pie-container": "git@github.com:PieLabs/pie-container.git#develop",
     "pie-angular-one-five-support": "git@github.com:PieLabs/pie-angular-one-five-support.git",
     "pie-react-support": "git@github.com:PieLabs/pie-react-support.git",
-    "pie-component-page": "git@github.com:PieLabs/pie-component-page.git"
+    "pie-component-page": "git@github.com:PieLabs/pie-component-page.git",
+    "prism": "^1.5.1"
   },
   "resolutions": {
     "pie-container": "develop",
