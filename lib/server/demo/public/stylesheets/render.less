@@ -1,26 +1,34 @@
-.black_on_rose{
+.black_on_rose {
   background-color: #FF66CC;
 }
 
-.white_on_black{
+.white_on_black {
   background-color: black;
 }
 
-.main{
+.main {
   display: flex;
 
-  .rendering{
+  .rendering {
     padding-right: 10px;
     flex: 1 1 auto;
   }
 
-  .session-preview.hide-session{
+  .session-preview.hide-session {
     opacity: 0.0;
   }
   
-  .session-preview{
-    padding-left: 10px;
-    flex: 1 1 auto;
-    transition: opacity 0.25s ease;
+  .tools {
+    width: 200px;
+
+    .session-preview {
+      flex: 1 1 auto;
+      transition: opacity 0.25s ease;
+    }
+
+    .env {
+      margin-top: 20px;
+    }
   }
+
 }

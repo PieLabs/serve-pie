@@ -55,7 +55,6 @@ block head
       
       logSession();
 
-
     })(this);
 
 
@@ -81,6 +80,8 @@ block head
       } else {
         $('.main').addClass(env.accessibility.colorContrast);
       }
+      var envEditor = document.querySelector('pie-env-editor');
+      envEditor.env = env;
     });
 
     function showPreview(show){
@@ -116,13 +117,17 @@ block content
       corespring-highlight-button
 
   hr/
-  div.main
-    div.rendering
+  .main
+    .rendering
       | !{markup}
-    div.session-preview
-      pre 
-        code.language-json
-  
+    .tools
+      .session-preview
+        pre 
+          code.language-json
+      .env
+        h4 env:
+        pie-env-editor
+
   script(type="text/javascript", src="/components/prism/prism.js")
   script(type="text/javascript", src="/components/prism/components/prism-json.min.js")
   script(type="text/javascript", src="/components/prism/components/prism-javascript.min.js")
