@@ -77,7 +77,7 @@ block head
       if(contrast === 'black_on_white'){
         $('.main').removeClass('black_on_rose');
         $('.main').removeClass('white_on_black');
-      } else {
+      } else if (env.accessibility && env.accessibility.colorContrast) {
         $('.main').addClass(env.accessibility.colorContrast);
       }
       var envEditor = document.querySelector('pie-env-editor');
