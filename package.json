@@ -46,7 +46,8 @@
     "babel-preset-react": "^6.11.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "style-loader": "^0.13.1"
+    "style-loader": "^0.13.1",
+    "css-loader": "~0.25.0"
   },
   "devDependencies": {
     "eslint": "~2.13.1",
