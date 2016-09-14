@@ -21,10 +21,7 @@ block head
     script(type="text/javascript", src=j)
   
   script(type="text/javascript", src="js/serve-pie-processor.js")
-
-
-  - for i in htmlImports
-    link(rel="import", href=i)
+  script(type="text/javascript", src="js/tmp-control-panel.js")
 
   script.
 
@@ -63,58 +60,12 @@ block head
     document.addEventListener('pie.container', function(event){
       if(event.detail.type === 'modelUpdated' && !initialised){
         initialised = true;
-        showPreview(true);
       }
     });
-
-    document.addEventListener('pie.envChanged', function(event){
-      var env = event.target.env;
-      var contrast;
-      if(env && env.accessibility && env.accessibility.colorContrast){
-        contrast = env.accessibility.colorContrast;
-      } 
-
-      if(contrast === 'black_on_white'){
-        $('.main').removeClass('black_on_rose');
-        $('.main').removeClass('white_on_black');
-      } else if (env.accessibility && env.accessibility.colorContrast) {
-        $('.main').addClass(env.accessibility.colorContrast);
-      }
-      var envEditor = document.querySelector('pie-env-editor');
-      envEditor.env = env;
-    });
-
-    function showPreview(show){
-      var panel = document.querySelector('pie-control-panel');
-      
-      if(panel){
-        panel.showSession = show;
-      }
-
-      if(show){
-        $('.session-preview').removeClass('hide-session');
-      } else {
-        $('.session-preview').addClass('hide-session');
-      }
-    }
-
-    document.addEventListener('pie.showSession', function(value) {
-      var show = value.detail === true;
-      showPreview(show);
-    });
-
-    showPreview(false);
 
 block content
 
-  - if(addAccessibilityComponents)
-    corespring-highlight-behavior(target=".rendering")
-    corespring-masking#masking(target=".rendering")
-
-  pie-control-panel
-    - if(addAccessibilityComponents)
-      masking-button(target="#masking")
-      corespring-highlight-button
+  tmp-control-panel
 
   hr/
   .main
@@ -124,10 +75,3 @@ block content
       .session-preview
         pre 
           code.language-json
-      .env
-        h4 env:
-        pie-env-editor
-
-  script(type="text/javascript", src="/components/prism/prism.js")
-  script(type="text/javascript", src="/components/prism/components/prism-json.min.js")
-  script(type="text/javascript", src="/components/prism/components/prism-javascript.min.js")
