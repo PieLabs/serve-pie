@@ -47,6 +47,7 @@
     "style-loader": "^0.13.1",
     "tmp": "0.0.28",
     "webpack": "^1.13.2",
+    "webpack-dev-middleware": "^1.7.0",
     "winston": "~2.2.0"
   },
   "devDependencies": {
