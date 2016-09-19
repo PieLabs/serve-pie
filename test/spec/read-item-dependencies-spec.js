@@ -4,7 +4,7 @@ const should = require('should');
 
 describe('read-item-dependencies', () => {
 
-  let read, fs, path;
+  let read, fs, path, dependencyHelper;
 
   beforeEach(() => {
 
@@ -14,8 +14,7 @@ describe('read-item-dependencies', () => {
         dependencies: {
           comp: 'path'
         }
-      }),
-      lstatSync: sinon.stub().returns({ isDirectory: () => true })
+      })
     };
 
 
@@ -23,9 +22,16 @@ describe('read-item-dependencies', () => {
       resolve: sinon.stub().returns('resolved')
     };
 
+    dependencyHelper = {
+      isGitUrl: sinon.stub().returns(true),
+      isSemver: sinon.stub().returns(true),
+      pathIsDir: sinon.stub().returns(true)
+    };
+
     read = proxyquire('../../lib/read-item-dependencies', {
       'fs-extra': fs,
-      path: path
+      path: path,
+      './npm/dependency-helper' : dependencyHelper
     });
   });
 
@@ -42,19 +48,9 @@ describe('read-item-dependencies', () => {
       }
     });
 
-    fs.lstatSync.throws(new Error(''));
-    read('dir').should.eql({});
-  });
-
-  it('skips paths that are not directories', () => {
-
-    fs.readJsonSync.returns({
-      dependencies: {
-        comp: 'not-a-dir.txt'
-      }
-    });
-
-    fs.lstatSync.returns({ isDirectory: () => false });
+    dependencyHelper.isGitUrl.returns(false);
+    dependencyHelper.isSemver.returns(false);
+    dependencyHelper.pathIsDir.returns(false);
     read('dir').should.eql({});
   });
 
@@ -96,6 +92,9 @@ describe('read-item-dependencies', () => {
   });
 
   it('relativises the paths', () => {
+    dependencyHelper.isGitUrl.returns(true);
+    dependencyHelper.isSemver.returns(true);
+    dependencyHelper.pathIsDir.returns(true);
     read('dir').should.eql({
       comp: 'resolved'
     });
