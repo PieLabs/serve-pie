@@ -92,8 +92,8 @@ describe('read-item-dependencies', () => {
   });
 
   it('relativises the paths', () => {
-    dependencyHelper.isGitUrl.returns(true);
-    dependencyHelper.isSemver.returns(true);
+    dependencyHelper.isGitUrl.returns(false);
+    dependencyHelper.isSemver.returns(false);
     dependencyHelper.pathIsDir.returns(true);
     read('dir').should.eql({
       comp: 'resolved'
