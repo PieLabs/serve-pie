@@ -91,3 +91,11 @@ mocha --debug-brk test/spec/path/to/spec.js
 * Re-add the accessibility controls (maybe put them behind a flag? `--with-accessibility-tools`)
 * add the show/hide session toggle from ev's prototype (https://share.proto.io/JT9K7Q/)
 * setup release process (tagging, merging to master, publishing etc)
+
+
+# Modules TODOS
+
+* more react comps
+* react css themes - handling
+* build/dev workflow
+* event handling 
